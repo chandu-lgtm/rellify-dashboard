@@ -1,0 +1,273 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Rellify LinkedIn — Daily Digest</title>
+<meta name="description" content="Daily approval surface for Rellify's LinkedIn outreach. B2B Service style, Inter typography." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+  /* B2B Service palette (ui-ux-pro-max #5) + Minimalism & Swiss style */
+  :root {
+    --ink: #0F172A;             /* slate-900 primary */
+    --ink-soft: #334155;        /* slate-700 secondary */
+    --muted: #64748B;            /* slate-500 */
+    --line: #E2E8F0;             /* slate-200 */
+    --line-soft: #EDF1F6;
+    --bg: #F8FAFC;               /* slate-50 */
+    --card: #FFFFFF;
+    --cta: #0369A1;              /* sky-700 */
+    --cta-tint: #E0F2FE;         /* sky-100 */
+    --green: #047857;            /* emerald-700 */
+    --green-tint: #D1FAE5;
+    --amber: #B45309;            /* amber-700 */
+    --amber-tint: #FEF3C7;
+    --red: #DC2626;              /* red-600 */
+    --red-tint: #FEE2E2;
+    --focus: 0 0 0 3px rgba(3,105,161,0.35);
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+  html, body { margin: 0; padding: 0; background: var(--bg); color: var(--ink); font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; line-height: 1.5; font-feature-settings: "cv02","cv03","cv04","cv11"; }
+  .skip-link { position: absolute; left: -9999px; top: 0; background: var(--ink); color: #fff; padding: 10px 14px; z-index: 50; }
+  .skip-link:focus { left: 12px; top: 12px; outline: 0; box-shadow: var(--focus); }
+  .wrap { max-width: 1040px; margin: 0 auto; padding: 36px 24px 80px; }
+
+  /* Header */
+  header.top { display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; flex-wrap: wrap; border-bottom: 2px solid var(--ink); padding-bottom: 18px; margin-bottom: 28px; }
+  header.top h1 { margin: 0 0 6px 0; font-size: 24px; font-weight: 700; letter-spacing: -0.015em; }
+  header.top .date { font-size: 30px; font-weight: 800; letter-spacing: -0.02em; color: var(--ink); }
+  header.top .sub { color: var(--muted); font-size: 13.5px; }
+
+  /* KPI grid */
+  .meta-grid { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 14px; margin-bottom: 32px; }
+  .meta-grid .cell { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 16px 18px; transition: border-color 200ms ease, transform 200ms ease; }
+  .meta-grid .cell:hover { border-color: var(--ink-soft); }
+  .meta-grid .label { color: var(--muted); font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 6px; }
+  .meta-grid .value { font-size: 17px; font-weight: 700; color: var(--ink); letter-spacing: -0.01em; }
+  .meta-grid .footnote { color: var(--muted); font-size: 11.5px; margin-top: 4px; }
+
+  /* Sections */
+  .section { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 26px 28px; margin-bottom: 22px; }
+  .section.priority { border-color: var(--cta); border-left: 4px solid var(--cta); padding-left: 25px; }
+  .section h2 { margin: 0 0 6px 0; font-size: 18px; font-weight: 700; display: flex; align-items: center; gap: 10px; letter-spacing: -0.01em; }
+  .section h3 { margin: 22px 0 8px 0; font-size: 14.5px; font-weight: 700; color: var(--ink); letter-spacing: -0.005em; }
+  .section .hint { color: var(--muted); font-size: 13.5px; margin: 0 0 14px 0; line-height: 1.55; }
+
+  /* Pills */
+  .pill { display: inline-flex; align-items: center; padding: 3px 10px; border-radius: 999px; font-size: 11.5px; font-weight: 600; letter-spacing: 0.01em; }
+  .pill.amber { background: var(--amber-tint); color: var(--amber); }
+  .pill.green { background: var(--green-tint); color: var(--green); }
+  .pill.blue  { background: var(--cta-tint); color: var(--cta); }
+  .pill.red   { background: var(--red-tint); color: var(--red); }
+
+  /* Tables */
+  table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+  th { text-align: left; font-weight: 600; color: var(--muted); padding: 10px 10px; border-bottom: 1px solid var(--line); font-size: 11px; text-transform: uppercase; letter-spacing: 0.07em; }
+  td { padding: 14px 10px; border-bottom: 1px solid var(--line-soft); vertical-align: top; }
+  tr:last-child td { border-bottom: 0; }
+  td.num { color: var(--muted); width: 28px; font-variant-numeric: tabular-nums; font-weight: 600; }
+  td.note { font-family: "Inter", system-ui, sans-serif; font-size: 13px; background: var(--bg); border-radius: 8px; padding: 12px 14px; color: var(--ink-soft); line-height: 1.55; }
+
+  /* Decision chips — sized for 44px touch target compliance */
+  .decision { display: inline-flex; gap: 6px; margin-top: 10px; flex-wrap: wrap; }
+  .decision span { display: inline-flex; align-items: center; min-height: 32px; padding: 6px 12px; font-size: 12px; font-weight: 600; border: 1.5px solid var(--line); border-radius: 8px; color: var(--muted); background: var(--card); cursor: default; transition: background 150ms ease, border-color 150ms ease; user-select: none; }
+  .decision span:hover { border-color: currentColor; }
+  .decision span.ok   { color: var(--green); border-color: var(--green); background: rgba(4,120,87,0.04); }
+  .decision span.edit { color: var(--amber); border-color: var(--amber); background: rgba(180,83,9,0.04); }
+  .decision span.kill { color: var(--red);   border-color: var(--red);   background: rgba(220,38,38,0.04); }
+
+  /* Quote */
+  blockquote { margin: 0; padding: 18px 20px; border-left: 4px solid var(--cta); background: var(--cta-tint); font-size: 14.5px; color: var(--ink); border-radius: 0 10px 10px 0; line-height: 1.6; }
+  blockquote p { margin: 0 0 10px 0; }
+  blockquote p:last-child { margin: 0; }
+  blockquote em { font-style: italic; font-weight: 600; }
+
+  /* Stats */
+  .stats { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 12px; margin-top: 6px; }
+  .stat { background: var(--bg); border-radius: 10px; padding: 14px 16px; border: 1px solid var(--line-soft); }
+  .stat .n { font-size: 26px; font-weight: 800; color: var(--ink); letter-spacing: -0.02em; font-variant-numeric: tabular-nums; }
+  .stat .l { color: var(--muted); font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; margin-top: 2px; }
+
+  /* Segment chips */
+  .seg-list { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+  .seg-list .chip { background: var(--bg); color: var(--ink-soft); padding: 5px 12px; border-radius: 999px; font-size: 11.5px; font-weight: 600; border: 1px solid var(--line); }
+  .seg-list .chip .c { color: var(--cta); font-weight: 700; margin-left: 6px; font-variant-numeric: tabular-nums; }
+
+  /* Checklist */
+  ul.checklist { list-style: none; padding-left: 0; margin: 8px 0; }
+  ul.checklist li { padding: 10px 0; border-bottom: 1px solid var(--line-soft); display: flex; align-items: flex-start; gap: 12px; font-size: 13.5px; line-height: 1.55; }
+  ul.checklist li:last-child { border-bottom: 0; }
+  ul.checklist li::before { content: ""; width: 18px; height: 18px; border: 1.5px solid var(--muted); border-radius: 4px; flex-shrink: 0; margin-top: 2px; background: var(--card); }
+  ul.checklist li b { font-weight: 700; color: var(--ink); }
+
+  /* Footer */
+  .footer { color: var(--muted); font-size: 12.5px; text-align: center; margin-top: 32px; padding-top: 20px; border-top: 1px solid var(--line); line-height: 1.6; }
+  a { color: var(--cta); text-decoration: none; font-weight: 600; }
+  a:hover { text-decoration: underline; }
+  a:focus-visible { outline: 0; box-shadow: var(--focus); border-radius: 4px; }
+  code { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 12.5px; background: var(--bg); border: 1px solid var(--line-soft); padding: 1px 6px; border-radius: 4px; color: var(--ink-soft); }
+
+  @media print {
+    body { background: white; }
+    .section { border: 1px solid #d4d7de; box-shadow: none; break-inside: avoid; }
+    .section.priority { border-left-width: 4px; }
+    .wrap { padding: 18px; max-width: 100%; }
+    .decision span:hover { border-color: var(--line); }
+  }
+  @media (max-width: 720px) {
+    .meta-grid { grid-template-columns: repeat(2, 1fr); }
+    .stats { grid-template-columns: repeat(2, 1fr); }
+    .section { padding: 20px 18px; }
+    header.top .date { font-size: 24px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; }
+  }
+</style>
+</head>
+<body>
+<a class="skip-link" href="#pending">Skip to pending approvals</a>
+<div class="wrap">
+
+  <header class="top">
+    <div>
+      <h1>Rellify LinkedIn — Daily Digest</h1>
+      <div class="sub">Managed account · Rellify (rellify.com)</div>
+    </div>
+    <div style="text-align:right">
+      <div class="date">Tue · 2026-07-21</div>
+      <div class="sub">Kickoff — account setup + first sourcing</div>
+    </div>
+  </header>
+
+  <div class="meta-grid">
+    <div class="cell">
+      <div class="label">Session window</div>
+      <div class="value">TBD <span class="pill amber">confirm</span></div>
+      <div class="footnote">set daily LinkedIn time budget</div>
+    </div>
+    <div class="cell">
+      <div class="label">Invite cap</div>
+      <div class="value">TBD <span class="pill amber">confirm</span></div>
+      <div class="footnote">depends on account type (free / Premium / Sales Nav)</div>
+    </div>
+    <div class="cell">
+      <div class="label">Post cap</div>
+      <div class="value">2 / week</div>
+      <div class="footnote">from onboarding</div>
+    </div>
+    <div class="cell">
+      <div class="label">Account health</div>
+      <div class="value">Unknown <span class="pill blue">first login</span></div>
+      <div class="footnote">verify after sign-in</div>
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <div class="section priority" id="pending">
+    <h2>1. Pending YOUR approval <span class="pill amber">Action needed</span></h2>
+    <p class="hint">This is the kickoff digest — no prospects sourced yet. Reply <code>OK</code>, <code>edit: &lt;note&gt;</code>, or <code>kill</code> on each item to unblock execution.</p>
+
+    <h3 style="margin:18px 0 6px 0;font-size:14px">1a. Confirm onboarding gaps (blank / unclear in the form)</h3>
+    <table>
+      <thead>
+        <tr><th></th><th>Item</th><th>What we have / need</th></tr>
+      </thead>
+      <tbody>
+        <tr><td class="num">1</td><td>LinkedIn account type<div class="decision"><span class="ok">answer</span></div></td><td class="note">Free, Premium, or Sales Navigator? Sets the daily invite cap and search reach. Account is 15+ yrs old, 4k+ connections.</td></tr>
+        <tr><td class="num">2</td><td>Daily time budget<div class="decision"><span class="ok">answer</span></div></td><td class="note">Minutes/day available on LinkedIn — drives the session window and how many warmups + invites fit per day.</td></tr>
+        <tr><td class="num">3</td><td>Stage &amp; ACV<div class="decision"><span class="ok">answer</span></div></td><td class="note">Onboarding said "TBD / Not sure". Rough deal value and stage help prioritize which ICP segments to chase first.</td></tr>
+        <tr><td class="num">4</td><td>Anti-ICP list<div class="decision"><span class="ok">empty is correct</span><span class="edit">add names</span></div></td><td class="note">No exclusions given. Competitors to never engage, ex-employees, partners, or industries that look right but never close?</td></tr>
+        <tr><td class="num">5</td><td>Profile URL + spelling<div class="decision"><span class="ok">confirm</span></div></td><td class="note">Confirm the exact LinkedIn profile URL for the Rellify account, and the spelling: onboarding doc says "Rellify" (two L's).</td></tr>
+      </tbody>
+    </table>
+
+    <h3 style="margin:24px 0 6px 0;font-size:14px">1b. First lead batch — approve ICP before sourcing <span class="pill blue">Apollo pull ready</span></h3>
+    <p class="hint">Confirm these ICP filters and I'll source the first 15–25 named prospects from Apollo into the pool.</p>
+    <ul class="checklist">
+      <li><b>Titles:</b> COO / CIO / CTO (buyers) + VP/Head of Operations, Digital Transformation, Automation/AI (champions). <span class="decision"><span class="ok">OK</span><span class="edit">edit</span></span></li>
+      <li><b>Company size:</b> 20–500 employees (mid-market). <span class="decision"><span class="ok">OK</span><span class="edit">edit</span></span></li>
+      <li><b>Industries:</b> Manufacturing, Logistics/Supply Chain, Retail/E-commerce, Professional Services/BPO. <span class="decision"><span class="ok">OK</span><span class="edit">edit</span></span></li>
+      <li><b>Geography:</b> United States. <span class="decision"><span class="ok">OK</span><span class="edit">edit</span></span></li>
+    </ul>
+
+    <h3 style="margin:24px 0 6px 0;font-size:14px">1c. Profile optimization <span class="pill amber">recommended before outreach</span></h3>
+    <p class="hint">Approve building a profile checklist (headline, About, featured, skills) tuned to the "own your safe AI agents" positioning, so prospects who click through see a coherent story.</p>
+    <div class="decision"><span class="ok">build it</span><span class="kill">skip for now</span></div>
+
+    <h3 style="margin:24px 0 6px 0;font-size:14px">1d. First post draft <span class="pill blue">voice = Direct</span></h3>
+    <p class="hint">Draft for the 2-posts/week cadence, on the core pain: AI everywhere, governance nowhere.</p>
+    <blockquote>
+      <p>Most companies don't have an AI adoption problem.<br>They have an AI <em>governance</em> problem.</p>
+      <p>Everyone's already using it. Twelve people, twelve tools, twelve versions of the same workflow, none of it repeatable and none of it owned.</p>
+      <p>The win isn't more AI. It's turning the good version into something your team owns and reuses.</p>
+    </blockquote>
+    <div class="decision" style="margin-top:10px"><span class="ok">OK queue it</span><span class="edit">edit text</span><span class="kill">kill</span></div>
+  </div>
+
+  <!-- ============================================================ -->
+  <div class="section">
+    <h2>2. Prospect pool state <span class="pill blue">snapshot</span></h2>
+    <div class="stats">
+      <div class="stat"><div class="n">0</div><div class="l">Clean (active)</div></div>
+      <div class="stat"><div class="n">0</div><div class="l">Parked</div></div>
+      <div class="stat"><div class="n">0</div><div class="l">Invites pending you</div></div>
+      <div class="stat"><div class="n">0</div><div class="l">Apollo-sourced</div></div>
+    </div>
+    <div class="seg-list">
+      <div class="chip">ops_leaders_manufacturing <span class="c">0</span></div>
+      <div class="chip">ops_leaders_logistics <span class="c">0</span></div>
+      <div class="chip">ops_leaders_retail_ecom <span class="c">0</span></div>
+      <div class="chip">ops_leaders_bpo <span class="c">0</span></div>
+      <div class="chip">ai_signal_engaged <span class="c">0</span></div>
+    </div>
+    <p class="hint" style="margin-top:14px">Empty by design — this is Day 1. Segments above are the ICP buckets prospects will be tagged into as they're sourced.</p>
+  </div>
+
+  <!-- ============================================================ -->
+  <div class="section">
+    <h2>3. Today's plan (what runs once you reply)</h2>
+    <ul class="checklist">
+      <li><b>Step 0 — Sign in &amp; health check.</b> Log into the Rellify LinkedIn account; confirm account type, connection count, and any "too many invitations" or restriction flags.</li>
+      <li><b>Step 1 — Confirm ICP (1b) &amp; source.</b> Once filters are approved, pull the first 15–25 named prospects from Apollo and tag them into the segments above.</li>
+      <li><b>Step 2 — Profile optimization (1c).</b> If approved, produce the headline/About/featured/skills checklist tuned to the positioning.</li>
+      <li><b>Step 3 — Warmup only.</b> No invites or DMs Day 1. Identify each sourced prospect's latest post for a thoughtful comment tomorrow.</li>
+      <li><b>Step 4 — Content.</b> Queue the first post (1d) if approved; hold to the 2/week cadence.</li>
+      <li><b>Step 5 — End-of-session log.</b> Capture state for tomorrow's digest.</li>
+    </ul>
+  </div>
+
+  <!-- ============================================================ -->
+  <div class="section">
+    <h2>4. Account health</h2>
+    <table>
+      <tr><td>Invites sent this session</td><td>0 <span class="pill blue">cap TBD — confirm account type</span></td></tr>
+      <tr><td>Acceptance rate trailing 7 days</td><td><span class="pill blue">N/A</span> — no invites sent yet</td></tr>
+      <tr><td>Reply rate to first DM trailing 7 days</td><td><span class="pill blue">N/A</span> — no DMs yet</td></tr>
+      <tr><td>"Too many invitations" warning</td><td>Verify on Step 0 after first login</td></tr>
+      <tr><td>Meeting link in rotation</td><td><span class="pill amber">needed</span> — add Rellify's booking/Calendly link (30-min meetings)</td></tr>
+    </table>
+  </div>
+
+  <!-- ============================================================ -->
+  <div class="section">
+    <h2>5. Tomorrow (Wed 2026-07-22) — first warmup day</h2>
+    <ul class="checklist">
+      <li>Step 0 → accept any incoming invites matching ICP; note account flags.</li>
+      <li>Step 1 → comment on the latest post of 5 sourced prospects (warmup, no invite).</li>
+      <li>Step 2 → prep first connection-request notes (Direct voice, no pitch) for your approval.</li>
+      <li>Step 3 → hold DMs until connections accept.</li>
+    </ul>
+  </div>
+
+  <div class="footer">
+    Rellify LinkedIn outreach · Kickoff digest generated 2026-07-21.<br>
+    Strategy source: <code>ai-outreach-system/prompts/rellify_outreach_strategy.md</code>. Reply on this page or by email to unblock each item.
+  </div>
+
+</div>
+</body>
+</html>
