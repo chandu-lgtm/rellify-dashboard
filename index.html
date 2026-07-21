@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Rellify — LinkedIn Agent</title>
-<meta name="description" content="Rellify's LinkedIn outreach agent — approvals, pipeline, strategy and daily plan." />
+<title>Relify — LinkedIn Agent</title>
+<meta name="description" content="Relify's LinkedIn outreach agent — approvals, pipeline, strategy and daily plan." />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600;700&family=Newsreader:ital,opsz,wght@1,6..72,500;1,6..72,600&display=swap" rel="stylesheet">
@@ -155,7 +155,7 @@ var NAV=[
 var TITLES={dashboard:'Dashboard',prospects:'Prospects',activity:'Activity',strategy:'Strategy',content:'Content',conversations:'Conversations',analytics:'Analytics'};
 
 var PLAN_TASKS=[
-  {title:'Confirm account health',desc:"Log into the Rellify LinkedIn account; read connection count, account type and any restriction flags."},
+  {title:'Confirm account health',desc:"Log into the Relify LinkedIn account; read connection count, account type and any restriction flags."},
   {title:'Source first Apollo batch',desc:'Pull 15–25 prospects that match the approved ICP and tag them into segments. Requires ICP approval first.'},
   {title:'Warm up 5 prospects',desc:'Read profiles and comment thoughtfully on the latest post of 5 sourced prospects. No invite, no DM on Day 1.'},
   {title:'Draft connection-request notes',desc:'Prepare Direct-voice, no-pitch invite drafts for your approval — nothing sends automatically.'}
@@ -245,23 +245,23 @@ function vSidebar(){
       '<span style="flex:1">'+n.label+'</span>'+count+'</button>';
   }).join('');
   return '<aside class="sidebar">'+
-    '<div class="brand"><div class="logo">R</div><div class="who" style="min-width:0"><div class="n">Rellify</div><div class="r">Founder workspace</div></div></div>'+
+    '<div class="brand"><div class="logo">R</div><div class="who" style="min-width:0"><div class="n">Relify</div><div class="r">Founder workspace</div></div></div>'+
     '<div class="sb-div"></div>'+
     '<div class="sb-eyebrow">Workspace</div>'+
     '<nav class="nav">'+nav+'</nav>'+
-    '<div class="sb-bottom"><div class="user"><div class="av">R</div><div style="min-width:0;flex:1"><div class="n">Rellify</div><div class="r">AI workflow platform</div></div><span class="pro">PRO</span></div></div>'+
+    '<div class="sb-bottom"><div class="user"><div class="av">R</div><div style="min-width:0;flex:1"><div class="n">Relify</div><div class="r">AI workflow platform</div></div><span class="pro">PRO</span></div></div>'+
   '</aside>';
 }
 
 function vTopbar(){
   return '<header class="topbar">'+
-    '<div style="min-width:0"><div class="title">'+esc(TITLES[S.screen])+'</div><div class="date">Rellify · '+TODAY+'</div></div>'+
+    '<div style="min-width:0"><div class="title">'+esc(TITLES[S.screen])+'</div><div class="date">Relify · '+TODAY+'</div></div>'+
     '<div class="spacer"></div>'+
     '<button class="run" onclick="A.openPlan()">'+(S.running?
       '<span style="width:13px;height:13px;border:2px solid rgba(255,255,255,0.5);border-top-color:#fff;border-radius:50%;display:inline-block;animation:spin .9s linear infinite"></span> Running…':
       '<svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M6 4l14 8-14 8z"></path></svg> Run Agent')+'</button>'+
     '<div class="vdiv"></div>'+
-    '<div class="tu"><div class="av">R</div><span class="n" style="font-weight:700;font-size:13px">Rellify</span><span class="pro">PRO</span></div>'+
+    '<div class="tu"><div class="av">R</div><span class="n" style="font-weight:700;font-size:13px">Relify</span><span class="pro">PRO</span></div>'+
   '</header>';
 }
 
@@ -275,8 +275,8 @@ function vDashboard(){
 
   // greeting + quote
   out+='<div style="display:flex;align-items:flex-end;justify-content:space-between;gap:20px;flex-wrap:wrap;padding:2px 4px">'+
-    '<div><div style="font-size:21px;font-weight:800;letter-spacing:-0.01em">'+greet+', Rellify</div>'+
-    '<div style="font-size:12.5px;color:var(--muted);font-weight:600;margin-top:2px">Here\'s where Rellify\'s outreach stands today.</div></div>'+
+    '<div><div style="font-size:21px;font-weight:800;letter-spacing:-0.01em">'+greet+', Relify</div>'+
+    '<div style="font-size:12.5px;color:var(--muted);font-weight:600;margin-top:2px">Here\'s where Relify\'s outreach stands today.</div></div>'+
     '<div style="max-width:520px;border-left:3px solid var(--teal);padding:2px 0 2px 14px">'+
     '<div style="font-size:13px;line-height:1.5;color:var(--sec);font-style:italic">&ldquo;'+esc(q.t)+'&rdquo;</div>'+
     '<div style="font-size:11.5px;font-weight:800;color:var(--teal-h);margin-top:3px">&mdash; '+esc(q.a)+'</div></div></div>';
@@ -319,7 +319,7 @@ function vDashboard(){
       }
       out+='</div>';
     }
-    // ICP approval column (Rellify Day-1 replaces prospect recs)
+    // ICP approval column (Relify Day-1 replaces prospect recs)
     out+='<div style="padding:18px 20px">'+
       '<div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;flex-wrap:wrap"><span class="badge chip-teal">Sourcing</span><span style="font-size:11px;font-weight:800;background:var(--purple-tint);color:var(--purple);padding:3px 10px;border-radius:20px">No prospects sourced yet</span></div>';
     if(!S.icpApproved){
@@ -342,7 +342,7 @@ function vDashboard(){
   var stages=[['Sourced',pc.sourced],['Warming',pc.warming],['Connected',pc.connected],['Replied',pc.replied],['Meetings',pc.meetings]];
   var furthest=-1;stages.forEach(function(st,i){if(st[1]>0)furthest=i;});
   var mlPre='Your ICP is set — you’re ',mlAccent='one approval away',mlPost=' from a live pipeline.';
-  if(S.icpApproved){mlPre='Sourcing is queued — Rellify is ';mlAccent='ready to build';mlPost=' your first prospect list.';}
+  if(S.icpApproved){mlPre='Sourcing is queued — Relify is ';mlAccent='ready to build';mlPost=' your first prospect list.';}
   var winChips=[['15+ yrs','account age'],['4k+','connections'],['2/wk','posting cadence'],['US','target market']];
   out+='<div style="position:relative;overflow:hidden;background:#fff;border:1px solid var(--border);border-radius:20px;padding:26px 28px 24px;box-shadow:var(--shadow-hero)">'+
     '<svg viewBox="0 0 420 260" style="position:absolute;top:-10px;right:-30px;width:420px;height:260px;pointer-events:none" aria-hidden="true">'+
@@ -372,7 +372,7 @@ function vDashboard(){
   // two-column: activity | needs attention
   out+='<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(380px,1fr));gap:16px;align-items:start">'+
     '<div class="card pad"><div style="display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin-bottom:12px"><div class="h-title">Today\'s activity</div><span class="mono" style="font-size:11px;color:var(--faint);font-weight:700">2026-07-21</span></div>'+
-      '<div class="empty"><b>No actions yet</b>Rellify hasn\'t run a session. Approve your ICP to start sourcing, then every like, comment and message shows up here — fully logged.</div></div>'+
+      '<div class="empty"><b>No actions yet</b>Relify hasn\'t run a session. Approve your ICP to start sourcing, then every like, comment and message shows up here — fully logged.</div></div>'+
     '<div class="card pad"><div style="display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin-bottom:14px"><div class="h-title">Needs attention</div><button class="btn btn-out teal btn-sm" style="border:none;padding:0;background:none;height:auto" onclick="A.go(\'prospects\')">View pipeline →</button></div>'+
       '<div style="background:var(--amber-tint);border:1px solid var(--amber-bd);border-radius:11px;padding:12px 14px"><div style="font-size:12px;font-weight:800;color:var(--amber-tx);margin-bottom:3px">'+(S.icpApproved?'Sourcing queued — no prospects to review yet':'Approve your ICP to unblock sourcing')+'</div><div style="font-size:12.5px;line-height:1.55;color:var(--amber-tx2)">'+(S.icpApproved?'The next session will populate the pipeline. Nothing else is blocked.':'No prospects can be sourced until the ICP filters are approved.')+'</div>'+(S.icpApproved?'':'<button class="btn btn-amber-out btn-sm" style="margin-top:9px" onclick="A.approveIcp()">Approve ICP</button>')+'</div>'+
       '<div style="margin-top:10px;font-size:12px;color:var(--muted);font-weight:600">'+(S.postApproval==='approved'?'Post #1 is approved and scheduled.':'Posting is paused — Post #1 is awaiting your approval.')+'</div></div></div>';
@@ -385,7 +385,7 @@ function vDashboard(){
 
 function vTomorrow(){
   var steps=[
-    {n:'1',title:'Confirm account health',expected:'Log into the Rellify account; read connection count, account type and any restriction flags.'},
+    {n:'1',title:'Confirm account health',expected:'Log into the Relify account; read connection count, account type and any restriction flags.'},
     {n:'2',title:'Source first Apollo batch (15–25)',expected:'Pull approved-ICP prospects and tag them into segments.',you:S.icpApproved?null:'Approve the ICP before sourcing can run'},
     {n:'3',title:'Warm up 5 prospects',expected:'Comment thoughtfully on 5 prospects’ latest posts. No invite, no DM on Day 1.'},
     {n:'4',title:'Draft connection-request notes',expected:'Prepare Direct-voice, no-pitch invite drafts for your approval.'}
@@ -449,7 +449,7 @@ function vProspects(){
 /* ---------- Activity ---------- */
 function vActivity(){
   return '<div class="screen narrow"><div><div class="page-h">Activity</div><div class="page-sub">A complete log of every action taken on your behalf</div></div>'+
-    '<div class="card pad"><div class="empty"><b>No activity yet</b>Rellify hasn\'t run a session. Once you approve the ICP and the agent runs, every comment, like, message and review appears here — each with the reasoning behind it and a place to give feedback.</div></div>'+
+    '<div class="card pad"><div class="empty"><b>No activity yet</b>Relify hasn\'t run a session. Once you approve the ICP and the agent runs, every comment, like, message and review appears here — each with the reasoning behind it and a place to give feedback.</div></div>'+
     '<div style="font-size:12px;color:var(--muted);font-weight:600;text-align:center">Tip: use <b style="color:var(--sec)">Run Agent</b> (top right) to review and approve the first session plan.</div></div>';
 }
 
@@ -462,8 +462,8 @@ function vStrategy(){
   var angles=['AI governance — everyone’s using AI, nobody owns it','Reuse — turning the good prompt into a repeatable workflow','Ownership — your own safe agents on your own data vs a black box'];
   return '<div class="screen" style="max-width:1060px"><div style="background:#0E3B36;border-radius:16px;padding:24px 26px;color:#fff">'+
     '<div style="font-size:11px;font-weight:700;letter-spacing:0.09em;text-transform:uppercase;color:#8FC7BE">Operating strategy</div>'+
-    '<div style="font-size:20px;font-weight:800;letter-spacing:-0.01em;margin-top:8px;max-width:760px;line-height:1.4">Get Rellify in front of mid-market ops and tech leaders adopting AI without governance — earn replies with a free reusable blueprint, and turn warm conversations into 30-minute demos.</div>'+
-    '<div style="display:flex;gap:22px;flex-wrap:wrap;margin-top:16px">'+[['Owner','Rellify'],['Focus area','AI workflow governance'],['Schedule','Runs on request'],['Posting','2 posts / week']].map(function(f){return '<div><div style="font-size:10.5px;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;color:#8FC7BE">'+f[0]+'</div><div style="font-weight:700;font-size:13px;margin-top:2px">'+f[1]+'</div></div>';}).join('')+'</div></div>'+
+    '<div style="font-size:20px;font-weight:800;letter-spacing:-0.01em;margin-top:8px;max-width:760px;line-height:1.4">Get Relify in front of mid-market ops and tech leaders adopting AI without governance — earn replies with a free reusable blueprint, and turn warm conversations into 30-minute demos.</div>'+
+    '<div style="display:flex;gap:22px;flex-wrap:wrap;margin-top:16px">'+[['Owner','Relify'],['Focus area','AI workflow governance'],['Schedule','Runs on request'],['Posting','2 posts / week']].map(function(f){return '<div><div style="font-size:10.5px;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;color:#8FC7BE">'+f[0]+'</div><div style="font-weight:700;font-size:13px;margin-top:2px">'+f[1]+'</div></div>';}).join('')+'</div></div>'+
     '<div class="grid-auto">'+
       '<div class="card pad"><div class="h-title" style="margin-bottom:10px">Target prospect</div><div style="font-size:13px;line-height:1.6;color:var(--ink2);margin-bottom:12px">COO / CIO / CTO and their operations & transformation leads at mid-market US companies that are adopting AI but lack cohesion or governance. Prospects are added only after your approval.</div>'+
         '<div class="eyebrow" style="margin-bottom:7px">Titles</div><div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px">'+titles.map(function(t){return '<span class="chip chip-teal">'+t+'</span>';}).join('')+'</div>'+
@@ -496,7 +496,7 @@ function vContent(){
 /* ---------- Conversations ---------- */
 function vConversations(){
   return '<div class="screen" style="max-width:1060px"><div class="row-wrap"><div><div class="page-h">Conversations</div><div class="page-sub">LinkedIn inbox replies &amp; AI-drafted responses — you review before anything sends</div></div><div class="spacer"></div><button class="btn btn-out" onclick="A.toast(\'Inbox refreshed\')">↻ Refresh inbox</button></div>'+
-    '<div class="card pad"><div class="empty"><b>No conversations yet</b>Once prospects accept connections and reply, their threads land here. Rellify drafts a suggested reply for each — you approve or edit before it ever sends.</div></div></div>';
+    '<div class="card pad"><div class="empty"><b>No conversations yet</b>Once prospects accept connections and reply, their threads land here. Relify drafts a suggested reply for each — you approve or edit before it ever sends.</div></div></div>';
 }
 
 /* ---------- Analytics ---------- */
