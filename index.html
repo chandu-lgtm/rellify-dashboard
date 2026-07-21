@@ -2,272 +2,553 @@
 <html lang="en">
 <head>
 <meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Rellify LinkedIn — Daily Digest</title>
-<meta name="description" content="Daily approval surface for Rellify's LinkedIn outreach. B2B Service style, Inter typography." />
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Rellify — LinkedIn Agent</title>
+<meta name="description" content="Rellify's LinkedIn outreach agent — approvals, pipeline, strategy and daily plan." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600;700&family=Newsreader:ital,opsz,wght@1,6..72,500;1,6..72,600&display=swap" rel="stylesheet">
 <style>
-  /* B2B Service palette (ui-ux-pro-max #5) + Minimalism & Swiss style */
-  :root {
-    --ink: #0F172A;             /* slate-900 primary */
-    --ink-soft: #334155;        /* slate-700 secondary */
-    --muted: #64748B;            /* slate-500 */
-    --line: #E2E8F0;             /* slate-200 */
-    --line-soft: #EDF1F6;
-    --bg: #F8FAFC;               /* slate-50 */
-    --card: #FFFFFF;
-    --cta: #0369A1;              /* sky-700 */
-    --cta-tint: #E0F2FE;         /* sky-100 */
-    --green: #047857;            /* emerald-700 */
-    --green-tint: #D1FAE5;
-    --amber: #B45309;            /* amber-700 */
-    --amber-tint: #FEF3C7;
-    --red: #DC2626;              /* red-600 */
-    --red-tint: #FEE2E2;
-    --focus: 0 0 0 3px rgba(3,105,161,0.35);
+  :root{
+    --canvas:#F6F8F7; --card:#FFFFFF; --border:#E7ECEA; --border-soft:#EDF1F0; --hair:#F2F5F4;
+    --ink:#16232A; --ink2:#33454B; --sec:#45565C; --sec2:#5C6E70; --muted:#7A8A8C; --faint:#9AA8A8;
+    --teal:#0E8577; --teal-h:#0B6B60; --teal-tint:#E4F2EF; --teal-tint2:#EDF4F2; --teal-soft:#F4FAF8;
+    --green:#1E9A5A; --green-tint:#E8F6EE; --green-bd:#C7E8D4; --green-tx:#1E7A48; --green-tx2:#14532D;
+    --amber:#B4690E; --amber-tint:#FBF1E1; --amber-tint2:#FDF8EC; --amber-bd:#F0DDBC; --amber-tx:#8F5410; --amber-tx2:#7A5A1E;
+    --purple:#5B4AA8; --purple-tint:#F4F2FB; --purple-bd:#E3DEF5;
+    --danger:#C24040; --danger-bd:#EBC9C9; --chip:#EDF1F0;
+    --shadow:0 1px 2px rgba(22,35,42,0.03), 0 12px 32px -18px rgba(22,35,42,0.14);
+    --shadow-hero:0 1px 2px rgba(22,35,42,0.03), 0 16px 40px -20px rgba(14,133,119,0.18);
+    --focus:0 0 0 3px rgba(14,133,119,0.32);
   }
-  * { box-sizing: border-box; }
-  html { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
-  html, body { margin: 0; padding: 0; background: var(--bg); color: var(--ink); font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; line-height: 1.5; font-feature-settings: "cv02","cv03","cv04","cv11"; }
-  .skip-link { position: absolute; left: -9999px; top: 0; background: var(--ink); color: #fff; padding: 10px 14px; z-index: 50; }
-  .skip-link:focus { left: 12px; top: 12px; outline: 0; box-shadow: var(--focus); }
-  .wrap { max-width: 1040px; margin: 0 auto; padding: 36px 24px 80px; }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;background:var(--canvas);color:var(--ink);font-family:'Manrope',system-ui,-apple-system,'Segoe UI',sans-serif;font-size:14px;line-height:1.5;-webkit-font-smoothing:antialiased;}
+  ::selection{background:#CDE9E3;}
+  a{color:inherit;text-decoration:none;}
+  button{font-family:inherit;}
+  :focus-visible{outline:0;box-shadow:var(--focus);border-radius:10px;}
+  .mono{font-family:'JetBrains Mono',monospace;}
+  @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(14,133,119,0.45);}70%{box-shadow:0 0 0 8px rgba(14,133,119,0);}100%{box-shadow:0 0 0 0 rgba(14,133,119,0);}}
+  @keyframes spin{to{transform:rotate(360deg);}}
+  @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;}}
 
-  /* Header */
-  header.top { display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; flex-wrap: wrap; border-bottom: 2px solid var(--ink); padding-bottom: 18px; margin-bottom: 28px; }
-  header.top h1 { margin: 0 0 6px 0; font-size: 24px; font-weight: 700; letter-spacing: -0.015em; }
-  header.top .date { font-size: 30px; font-weight: 800; letter-spacing: -0.02em; color: var(--ink); }
-  header.top .sub { color: var(--muted); font-size: 13.5px; }
+  .app{display:flex;width:100%;height:100vh;overflow:hidden;}
 
-  /* KPI grid */
-  .meta-grid { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 14px; margin-bottom: 32px; }
-  .meta-grid .cell { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 16px 18px; transition: border-color 200ms ease, transform 200ms ease; }
-  .meta-grid .cell:hover { border-color: var(--ink-soft); }
-  .meta-grid .label { color: var(--muted); font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 6px; }
-  .meta-grid .value { font-size: 17px; font-weight: 700; color: var(--ink); letter-spacing: -0.01em; }
-  .meta-grid .footnote { color: var(--muted); font-size: 11.5px; margin-top: 4px; }
+  /* Sidebar */
+  .sidebar{width:236px;flex-shrink:0;background:#fff;border-right:1px solid var(--border);display:flex;flex-direction:column;min-height:0;}
+  .brand{display:flex;align-items:center;gap:11px;padding:18px 18px 16px;}
+  .brand .logo{width:38px;height:38px;border-radius:11px;background:var(--teal);display:grid;place-items:center;color:#fff;font-weight:800;font-size:17px;flex-shrink:0;}
+  .brand .n{font-weight:800;font-size:14.5px;letter-spacing:-0.01em;}
+  .brand .r{font-size:11.5px;color:var(--muted);font-weight:600;}
+  .sb-div{height:1px;background:var(--border-soft);margin:0 18px 10px;}
+  .sb-eyebrow{font-size:10.5px;font-weight:700;letter-spacing:0.09em;text-transform:uppercase;color:var(--faint);padding:0 20px 8px;}
+  .nav{display:flex;flex-direction:column;gap:2px;padding:0 10px;overflow-y:auto;flex:1;min-height:0;}
+  .nav button{display:flex;align-items:center;gap:11px;width:100%;border:none;cursor:pointer;text-align:left;padding:9px 12px;border-radius:999px;font-size:13.5px;background:transparent;color:var(--sec);font-weight:600;}
+  .nav button:hover{background:#EDF4F2;}
+  .nav button.active{background:var(--teal-tint);color:var(--teal-h);font-weight:800;}
+  .nav svg{flex-shrink:0;}
+  .nav .count{margin-left:auto;font-size:11px;font-weight:700;background:var(--chip);color:var(--sec2);border-radius:20px;padding:2px 8px;font-family:'JetBrains Mono',monospace;}
+  .sb-bottom{padding:12px 10px 14px;border-top:1px solid var(--border-soft);}
+  .user{display:flex;align-items:center;gap:10px;padding:10px 12px;border:1px solid var(--border);border-radius:11px;background:#FAFCFB;}
+  .user .av{width:32px;height:32px;border-radius:50%;background:var(--teal-tint);color:var(--teal-h);display:grid;place-items:center;font-weight:800;font-size:12px;flex-shrink:0;}
+  .user .n{font-size:12.5px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .user .r{font-size:11px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .pro{font-size:9.5px;font-weight:800;letter-spacing:0.06em;background:var(--amber-tint);color:var(--amber);padding:3px 7px;border-radius:6px;}
 
-  /* Sections */
-  .section { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 26px 28px; margin-bottom: 22px; }
-  .section.priority { border-color: var(--cta); border-left: 4px solid var(--cta); padding-left: 25px; }
-  .section h2 { margin: 0 0 6px 0; font-size: 18px; font-weight: 700; display: flex; align-items: center; gap: 10px; letter-spacing: -0.01em; }
-  .section h3 { margin: 22px 0 8px 0; font-size: 14.5px; font-weight: 700; color: var(--ink); letter-spacing: -0.005em; }
-  .section .hint { color: var(--muted); font-size: 13.5px; margin: 0 0 14px 0; line-height: 1.55; }
+  /* Main */
+  .main{flex:1;display:flex;flex-direction:column;min-width:0;min-height:0;}
+  .topbar{height:60px;flex-shrink:0;background:#fff;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:16px;padding:0 22px;}
+  .topbar .title{font-weight:800;font-size:15.5px;letter-spacing:-0.01em;}
+  .topbar .date{font-size:11px;color:var(--faint);font-weight:600;}
+  .topbar .vdiv{width:1px;height:26px;background:var(--border);}
+  .topbar .run{height:36px;padding:0 15px;border:none;border-radius:999px;background:var(--teal);color:#fff;font-size:12.5px;font-weight:800;cursor:pointer;display:inline-flex;align-items:center;gap:7px;}
+  .topbar .run:hover{background:var(--teal-h);}
+  .topbar .tu{display:flex;align-items:center;gap:9px;}
+  .topbar .tu .av{width:32px;height:32px;border-radius:50%;background:var(--teal-tint);color:var(--teal-h);display:grid;place-items:center;font-weight:800;font-size:12px;}
+  .scroll{flex:1;overflow-y:auto;min-height:0;padding:22px 26px 44px;}
+  .screen{max-width:1160px;margin:0 auto;display:flex;flex-direction:column;gap:16px;}
+  .screen.narrow{max-width:860px;gap:18px;}
 
-  /* Pills */
-  .pill { display: inline-flex; align-items: center; padding: 3px 10px; border-radius: 999px; font-size: 11.5px; font-weight: 600; letter-spacing: 0.01em; }
-  .pill.amber { background: var(--amber-tint); color: var(--amber); }
-  .pill.green { background: var(--green-tint); color: var(--green); }
-  .pill.blue  { background: var(--cta-tint); color: var(--cta); }
-  .pill.red   { background: var(--red-tint); color: var(--red); }
+  /* Buttons */
+  .btn{height:34px;padding:0 15px;border-radius:999px;font-size:12.5px;font-weight:800;cursor:pointer;display:inline-flex;align-items:center;gap:7px;border:1px solid transparent;}
+  .btn-teal{background:var(--teal);color:#fff;border:none;}.btn-teal:hover{background:var(--teal-h);}
+  .btn-out{background:#fff;color:var(--sec);border:1px solid var(--border);}.btn-out:hover{background:#F2F7F6;}
+  .btn-out.teal{color:var(--teal);}
+  .btn-amber{background:var(--amber);color:#fff;border:none;}.btn-amber:hover{background:#96570B;}
+  .btn-amber-out{background:#fff;color:var(--amber-tx);border:1px solid #E3C68F;}.btn-amber-out:hover{background:#FCF7EC;}
+  .btn-sm{height:30px;padding:0 13px;font-size:11.5px;}
+  .btn-xs{height:28px;padding:0 12px;font-size:11.5px;}
+  .btn-lg{height:42px;padding:0 18px;font-size:14px;}
 
-  /* Tables */
-  table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
-  th { text-align: left; font-weight: 600; color: var(--muted); padding: 10px 10px; border-bottom: 1px solid var(--line); font-size: 11px; text-transform: uppercase; letter-spacing: 0.07em; }
-  td { padding: 14px 10px; border-bottom: 1px solid var(--line-soft); vertical-align: top; }
-  tr:last-child td { border-bottom: 0; }
-  td.num { color: var(--muted); width: 28px; font-variant-numeric: tabular-nums; font-weight: 600; }
-  td.note { font-family: "Inter", system-ui, sans-serif; font-size: 13px; background: var(--bg); border-radius: 8px; padding: 12px 14px; color: var(--ink-soft); line-height: 1.55; }
+  /* Cards & primitives */
+  .card{background:#fff;border:1px solid var(--border);border-radius:16px;box-shadow:var(--shadow);}
+  .pad{padding:18px 20px;}
+  .eyebrow{font-size:10.5px;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;color:var(--muted);}
+  .h-title{font-weight:800;font-size:14.5px;}
+  .page-h{font-weight:800;font-size:19px;letter-spacing:-0.01em;}
+  .page-sub{font-size:12.5px;color:var(--muted);font-weight:600;margin-top:2px;}
+  .chip{font-size:11.5px;font-weight:700;padding:4px 10px;border-radius:7px;}
+  .chip-teal{background:var(--teal-tint);color:var(--teal-h);}
+  .chip-amber{background:var(--amber-tint);color:var(--amber-tx);}
+  .chip-neutral{background:var(--chip);color:var(--sec2);}
+  .badge{font-size:10.5px;font-weight:800;letter-spacing:0.05em;text-transform:uppercase;padding:3px 10px;border-radius:20px;}
+  .empty{border:1px dashed #CFDBD8;border-radius:12px;background:#FBFDFC;padding:22px;text-align:center;color:var(--muted);font-size:13px;font-weight:600;line-height:1.55;}
+  .empty b{color:var(--sec);display:block;font-size:13.5px;margin-bottom:4px;}
+  input.f,select.f{width:100%;height:38px;border:1px solid var(--border);border-radius:9px;padding:0 13px;font-family:'Manrope',sans-serif;font-size:13px;color:var(--ink);background:#FAFCFB;outline:none;}
+  input.f:focus,select.f:focus{box-shadow:var(--focus);border-color:var(--teal);}
 
-  /* Decision chips — sized for 44px touch target compliance */
-  .decision { display: inline-flex; gap: 6px; margin-top: 10px; flex-wrap: wrap; }
-  .decision span { display: inline-flex; align-items: center; min-height: 32px; padding: 6px 12px; font-size: 12px; font-weight: 600; border: 1.5px solid var(--line); border-radius: 8px; color: var(--muted); background: var(--card); cursor: default; transition: background 150ms ease, border-color 150ms ease; user-select: none; }
-  .decision span:hover { border-color: currentColor; }
-  .decision span.ok   { color: var(--green); border-color: var(--green); background: rgba(4,120,87,0.04); }
-  .decision span.edit { color: var(--amber); border-color: var(--amber); background: rgba(180,83,9,0.04); }
-  .decision span.kill { color: var(--red);   border-color: var(--red);   background: rgba(220,38,38,0.04); }
+  .grid-auto{display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:16px;align-items:start;}
+  .row-wrap{display:flex;align-items:flex-end;gap:12px;flex-wrap:wrap;}
+  .spacer{flex:1;}
 
-  /* Quote */
-  blockquote { margin: 0; padding: 18px 20px; border-left: 4px solid var(--cta); background: var(--cta-tint); font-size: 14.5px; color: var(--ink); border-radius: 0 10px 10px 0; line-height: 1.6; }
-  blockquote p { margin: 0 0 10px 0; }
-  blockquote p:last-child { margin: 0; }
-  blockquote em { font-style: italic; font-weight: 600; }
+  /* Toast */
+  .toast{position:fixed;bottom:26px;left:50%;transform:translateX(-50%);background:var(--ink);color:#fff;font-size:13px;font-weight:700;padding:11px 20px;border-radius:11px;box-shadow:0 10px 30px rgba(15,30,28,0.35);z-index:60;}
+  /* Modal */
+  .overlay{position:fixed;inset:0;background:rgba(15,30,28,0.4);display:grid;place-items:center;z-index:50;padding:24px;}
+  .modal{background:#fff;border-radius:16px;width:560px;max-width:100%;max-height:86vh;overflow-y:auto;padding:24px 26px;box-shadow:0 18px 50px rgba(15,30,28,0.25);}
 
-  /* Stats */
-  .stats { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 12px; margin-top: 6px; }
-  .stat { background: var(--bg); border-radius: 10px; padding: 14px 16px; border: 1px solid var(--line-soft); }
-  .stat .n { font-size: 26px; font-weight: 800; color: var(--ink); letter-spacing: -0.02em; font-variant-numeric: tabular-nums; }
-  .stat .l { color: var(--muted); font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; margin-top: 2px; }
-
-  /* Segment chips */
-  .seg-list { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
-  .seg-list .chip { background: var(--bg); color: var(--ink-soft); padding: 5px 12px; border-radius: 999px; font-size: 11.5px; font-weight: 600; border: 1px solid var(--line); }
-  .seg-list .chip .c { color: var(--cta); font-weight: 700; margin-left: 6px; font-variant-numeric: tabular-nums; }
-
-  /* Checklist */
-  ul.checklist { list-style: none; padding-left: 0; margin: 8px 0; }
-  ul.checklist li { padding: 10px 0; border-bottom: 1px solid var(--line-soft); display: flex; align-items: flex-start; gap: 12px; font-size: 13.5px; line-height: 1.55; }
-  ul.checklist li:last-child { border-bottom: 0; }
-  ul.checklist li::before { content: ""; width: 18px; height: 18px; border: 1.5px solid var(--muted); border-radius: 4px; flex-shrink: 0; margin-top: 2px; background: var(--card); }
-  ul.checklist li b { font-weight: 700; color: var(--ink); }
-
-  /* Footer */
-  .footer { color: var(--muted); font-size: 12.5px; text-align: center; margin-top: 32px; padding-top: 20px; border-top: 1px solid var(--line); line-height: 1.6; }
-  a { color: var(--cta); text-decoration: none; font-weight: 600; }
-  a:hover { text-decoration: underline; }
-  a:focus-visible { outline: 0; box-shadow: var(--focus); border-radius: 4px; }
-  code { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 12.5px; background: var(--bg); border: 1px solid var(--line-soft); padding: 1px 6px; border-radius: 4px; color: var(--ink-soft); }
-
-  @media print {
-    body { background: white; }
-    .section { border: 1px solid #d4d7de; box-shadow: none; break-inside: avoid; }
-    .section.priority { border-left-width: 4px; }
-    .wrap { padding: 18px; max-width: 100%; }
-    .decision span:hover { border-color: var(--line); }
+  @media (max-width:900px){
+    .sidebar{width:74px;}
+    .brand .who,.brand .sb-eyebrow,.nav button span:not(.count),.user .n,.user .r,.pro{display:none;}
+    .nav button{justify-content:center;}
+    .user{justify-content:center;}
   }
-  @media (max-width: 720px) {
-    .meta-grid { grid-template-columns: repeat(2, 1fr); }
-    .stats { grid-template-columns: repeat(2, 1fr); }
-    .section { padding: 20px 18px; }
-    header.top .date { font-size: 24px; }
-  }
-  @media (prefers-reduced-motion: reduce) {
-    *, *::before, *::after { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; }
+  @media (max-width:680px){
+    .scroll{padding:16px 14px 40px;}
+    .topbar{padding:0 14px;gap:10px;}
+    .topbar .tu .n,.topbar .date{display:none;}
   }
 </style>
 </head>
 <body>
-<a class="skip-link" href="#pending">Skip to pending approvals</a>
-<div class="wrap">
+<div id="app"></div>
+<script>
+"use strict";
+/* ============================ RELLIFY — Day-1 data ============================ */
+var TODAY = "Tuesday, Jul 21, 2026";
+var QUOTES=[
+  {t:"You can make more friends in two months by becoming interested in other people than you can in two years by trying to get other people interested in you.",a:"Dale Carnegie"},
+  {t:"The currency of real networking is not greed but generosity.",a:"Keith Ferrazzi"},
+  {t:"Your network is your net worth.",a:"Porter Gale"},
+  {t:"Succeeding in business is all about making connections.",a:"Richard Branson"},
+  {t:"Personal relationships are the fertile soil from which all advancement, all success, all achievement in real life grows.",a:"Ben Stein"},
+  {t:"The richest people in the world look for and build networks; everyone else looks for work.",a:"Robert Kiyosaki"},
+  {t:"The single greatest people skill is a highly developed and authentic interest in the other person.",a:"Bob Burg"}
+];
+var POST_BODY="The AI governance gap: most companies don't have an adoption problem, they have a governance problem. Everyone's already using AI — twelve people, twelve tools, twelve versions of the same workflow, none of it repeatable and none of it owned. The win isn't more AI. It's turning the good version into something your team owns and reuses.";
+var POST_WHY="This is the exact pain your ICP describes: people using AI ad-hoc with no cohesion or governance. Leading with the problem (not the product) earns replies from COO/CIO/CTO readers and sets up the free blueprint offer.";
 
-  <header class="top">
-    <div>
-      <h1>Rellify LinkedIn — Daily Digest</h1>
-      <div class="sub">Managed account · Rellify (rellify.com)</div>
-    </div>
-    <div style="text-align:right">
-      <div class="date">Tue · 2026-07-21</div>
-      <div class="sub">Kickoff — account setup + first sourcing</div>
-    </div>
-  </header>
+var ICONS={
+  dashboard:'M3 3h7v9H3z M14 3h7v5h-7z M14 12h7v9h-7z M3 16h7v5H3z',
+  prospects:'M9 11a3.2 3.2 0 1 0 0-6.4A3.2 3.2 0 0 0 9 11z M2.5 20c.6-3.4 3.4-5.4 6.5-5.4s5.9 2 6.5 5.4 M17 8.4a2.4 2.4 0 1 0 0-4.8 2.4 2.4 0 0 0 0 4.8 M16 12.5c2.6.2 4.4 1.8 5 4.5',
+  activity:'M12 22a10 10 0 1 0 0-20 10 10 0 0 0 0 20z M12 6v6l4 2',
+  strategy:'M12 20a8 8 0 1 0 0-16 8 8 0 0 0 0 16z M12 16a4 4 0 1 0 0-8 4 4 0 0 0 0 8z M12 4V2 M12 22v-2 M4 12H2 M22 12h-2',
+  content:'M4 4h12l4 4v12H4z M16 4v4h4 M8 12h8 M8 16h6',
+  conversations:'M21 12a8 8 0 0 1-12.4 6.7L3 21l2.3-5.6A8 8 0 1 1 21 12z',
+  analytics:'M3 20h18 M6 16V9 M11 16V5 M16 16v-7 M21 16v-4'
+};
+var NAV=[
+  {id:'dashboard',label:'Dashboard'},{id:'prospects',label:'Prospects'},{id:'activity',label:'Activity'},
+  {id:'strategy',label:'Strategy'},{id:'content',label:'Content'},{id:'conversations',label:'Conversations'},
+  {id:'analytics',label:'Analytics'}
+];
+var TITLES={dashboard:'Dashboard',prospects:'Prospects',activity:'Activity',strategy:'Strategy',content:'Content',conversations:'Conversations',analytics:'Analytics'};
 
-  <div class="meta-grid">
-    <div class="cell">
-      <div class="label">Session window</div>
-      <div class="value">TBD <span class="pill amber">confirm</span></div>
-      <div class="footnote">set daily LinkedIn time budget</div>
-    </div>
-    <div class="cell">
-      <div class="label">Invite cap</div>
-      <div class="value">TBD <span class="pill amber">confirm</span></div>
-      <div class="footnote">depends on account type (free / Premium / Sales Nav)</div>
-    </div>
-    <div class="cell">
-      <div class="label">Post cap</div>
-      <div class="value">2 / week</div>
-      <div class="footnote">from onboarding</div>
-    </div>
-    <div class="cell">
-      <div class="label">Account health</div>
-      <div class="value">Unknown <span class="pill blue">first login</span></div>
-      <div class="footnote">verify after sign-in</div>
-    </div>
-  </div>
+var PLAN_TASKS=[
+  {title:'Confirm account health',desc:"Log into the Rellify LinkedIn account; read connection count, account type and any restriction flags."},
+  {title:'Source first Apollo batch',desc:'Pull 15–25 prospects that match the approved ICP and tag them into segments. Requires ICP approval first.'},
+  {title:'Warm up 5 prospects',desc:'Read profiles and comment thoughtfully on the latest post of 5 sourced prospects. No invite, no DM on Day 1.'},
+  {title:'Draft connection-request notes',desc:'Prepare Direct-voice, no-pitch invite drafts for your approval — nothing sends automatically.'}
+];
 
-  <!-- ============================================================ -->
-  <div class="section priority" id="pending">
-    <h2>1. Pending YOUR approval <span class="pill amber">Action needed</span></h2>
-    <p class="hint">This is the kickoff digest — no prospects sourced yet. Reply <code>OK</code>, <code>edit: &lt;note&gt;</code>, or <code>kill</code> on each item to unblock execution.</p>
+/* ============================ State ============================ */
+var S={
+  screen:'dashboard', toast:'', toastT:null,
+  postApproval:'pending', postAsk:false, postNote:'',
+  icpApproved:false,
+  planOpen:false, running:false, runTaskIdx:0, runTimer:null,
+  checksOpen:false, questionOpen:false,
+  filter:'all', people:[], expandKey:null, confirmDelKey:null,
+  editorOpen:false, editorIdx:null,
+  planOn:[true,true,true,true]
+};
 
-    <h3 style="margin:18px 0 6px 0;font-size:14px">1a. Confirm onboarding gaps (blank / unclear in the form)</h3>
-    <table>
-      <thead>
-        <tr><th></th><th>Item</th><th>What we have / need</th></tr>
-      </thead>
-      <tbody>
-        <tr><td class="num">1</td><td>LinkedIn account type<div class="decision"><span class="ok">answer</span></div></td><td class="note">Free, Premium, or Sales Navigator? Sets the daily invite cap and search reach. Account is 15+ yrs old, 4k+ connections.</td></tr>
-        <tr><td class="num">2</td><td>Daily time budget<div class="decision"><span class="ok">answer</span></div></td><td class="note">Minutes/day available on LinkedIn — drives the session window and how many warmups + invites fit per day.</td></tr>
-        <tr><td class="num">3</td><td>Stage &amp; ACV<div class="decision"><span class="ok">answer</span></div></td><td class="note">Onboarding said "TBD / Not sure". Rough deal value and stage help prioritize which ICP segments to chase first.</td></tr>
-        <tr><td class="num">4</td><td>Anti-ICP list<div class="decision"><span class="ok">empty is correct</span><span class="edit">add names</span></div></td><td class="note">No exclusions given. Competitors to never engage, ex-employees, partners, or industries that look right but never close?</td></tr>
-        <tr><td class="num">5</td><td>Profile URL + spelling<div class="decision"><span class="ok">confirm</span></div></td><td class="note">Confirm the exact LinkedIn profile URL for the Rellify account, and the spelling: onboarding doc says "Rellify" (two L's).</td></tr>
-      </tbody>
-    </table>
+/* ============================ Helpers ============================ */
+function esc(s){return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+function initials(n){return n.split(' ').map(function(w){return w[0];}).join('').slice(0,2).toUpperCase();}
+function ic(path,sz,stroke){sz=sz||17;stroke=stroke||1.7;return '<svg width="'+sz+'" height="'+sz+'" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="'+stroke+'" stroke-linecap="round" stroke-linejoin="round"><path d="'+path+'"></path></svg>';}
+function toast(m){clearTimeout(S.toastT);S.toast=m;render();S.toastT=setTimeout(function(){S.toast='';render();},2800);}
+function stopE(e){e.stopPropagation();}
 
-    <h3 style="margin:24px 0 6px 0;font-size:14px">1b. First lead batch — approve ICP before sourcing <span class="pill blue">Apollo pull ready</span></h3>
-    <p class="hint">Confirm these ICP filters and I'll source the first 15–25 named prospects from Apollo into the pool.</p>
-    <ul class="checklist">
-      <li><b>Titles:</b> COO / CIO / CTO (buyers) + VP/Head of Operations, Digital Transformation, Automation/AI (champions). <span class="decision"><span class="ok">OK</span><span class="edit">edit</span></span></li>
-      <li><b>Company size:</b> 20–500 employees (mid-market). <span class="decision"><span class="ok">OK</span><span class="edit">edit</span></span></li>
-      <li><b>Industries:</b> Manufacturing, Logistics/Supply Chain, Retail/E-commerce, Professional Services/BPO. <span class="decision"><span class="ok">OK</span><span class="edit">edit</span></span></li>
-      <li><b>Geography:</b> United States. <span class="decision"><span class="ok">OK</span><span class="edit">edit</span></span></li>
-    </ul>
+/* ============================ Actions ============================ */
+var A={
+  go:function(sc){S.screen=sc;S.expandKey=null;render();window.scrollTo(0,0);var sc2=document.querySelector('.scroll');if(sc2)sc2.scrollTop=0;},
+  approvePost:function(){S.postApproval='approved';S.postAsk=false;render();toast('Post #1 approved — scheduled for the next posting slot');},
+  rejectAsk:function(){S.postAsk=true;render();},
+  rejectCancel:function(){S.postAsk=false;render();},
+  rejectConfirm:function(){var el=document.getElementById('postNote');var note=el&&el.value.trim()?el.value.trim():'No note added';S.postNote=note;S.postApproval='held';S.postAsk=false;render();toast('Post rejected — your note was saved for the agent');},
+  approveIcp:function(){S.icpApproved=true;render();toast('ICP approved — sourcing queued for the next session');},
+  toast:function(m){toast(m);},
+  openPlan:function(){S.planOpen=true;render();},
+  closePlan:function(){S.planOpen=false;render();},
+  togglePlan:function(i){S.planOn[i]=!S.planOn[i];render();},
+  approvePlan:function(){
+    var tasks=PLAN_TASKS.filter(function(_,i){return S.planOn[i];});
+    if(!tasks.length){toast('Nothing selected — tick at least one task');return;}
+    S.planOpen=false;S.running=true;S.runTaskIdx=0;S.screen='dashboard';render();
+    var i=0,n=tasks.length;S._runTasks=tasks;
+    clearInterval(S.runTimer);
+    S.runTimer=setInterval(function(){i+=1;if(i>=n){clearInterval(S.runTimer);S.running=false;render();toast('Session complete — dashboard updated');}else{S.runTaskIdx=i;render();}},1600);
+  },
+  toggleChecks:function(){S.checksOpen=!S.checksOpen;render();},
+  toggleQuestion:function(){S.questionOpen=!S.questionOpen;render();},
+  setFilter:function(f){S.filter=f;render();},
+  toggleRow:function(name){S.expandKey=(S.expandKey===name?null:name);S.confirmDelKey=null;render();},
+  openAdd:function(){S.editorOpen=true;S.editorIdx=null;render();},
+  openEdit:function(idx){S.editorOpen=true;S.editorIdx=idx;render();},
+  closeEditor:function(){S.editorOpen=false;render();},
+  saveEditor:function(){
+    var name=(document.getElementById('eName')||{}).value; name=(name||'').trim();
+    if(!name){toast('Name is required');return;}
+    var title=((document.getElementById('eTitle')||{}).value||'').trim()||'—';
+    var company=((document.getElementById('eCompany')||{}).value||'').trim()||'—';
+    var stage=((document.getElementById('eStage')||{}).value)||'Approved';
+    var score=Math.max(0,Math.min(100,parseInt(((document.getElementById('eScore')||{}).value)||'60',10)||0));
+    var next=((document.getElementById('eNext')||{}).value||'').trim()||'No next step set';
+    var SMAP={'Approved':0,'Warming':1,'Connected':2,'Conversation':3,'Meeting set':4};
+    var p={name:name,title:title,company:company,stage:stage,stageIdx:SMAP[stage]||0,score:score,next:next,
+      when:['Jul 21','','','',''],jn:['Added manually','','','',''],
+      why:whyFor(score)};
+    if(S.editorIdx!=null){S.people[S.editorIdx]=p;}else{S.people.unshift(p);}
+    S.editorOpen=false;S.expandKey=name;render();toast(S.editorIdx!=null?'Prospect updated':'Prospect added');
+  },
+  delAsk:function(name){if(S.confirmDelKey!==name){S.confirmDelKey=name;render();return;}S.people=S.people.filter(function(x){return x.name!==name;});S.confirmDelKey=null;S.expandKey=null;render();toast('Prospect deleted');}
+};
+function whyFor(score){var max=[40,30,20,10];var pts=max.map(function(m){return Math.round(score*m/100);});var drift=score-pts.reduce(function(a,b){return a+b;},0);pts[0]+=drift;return pts.map(function(v,i){return [v,i===0?'Estimated from the manual score':''];});}
 
-    <h3 style="margin:24px 0 6px 0;font-size:14px">1c. Profile optimization <span class="pill amber">recommended before outreach</span></h3>
-    <p class="hint">Approve building a profile checklist (headline, About, featured, skills) tuned to the "own your safe AI agents" positioning, so prospects who click through see a coherent story.</p>
-    <div class="decision"><span class="ok">build it</span><span class="kill">skip for now</span></div>
+/* ============================ Pipeline compute ============================ */
+function pipelineCounts(){
+  var f=function(ff){return S.people.filter(function(p){return p.stageIdx===STAGE_IDX[ff];}).length;};
+  var sourced=S.people.length, warming=cnt(1), connected=cnt(2), replied=cnt(3), meetings=cnt(4);
+  function cnt(i){return S.people.filter(function(p){return p.stageIdx===i;}).length;}
+  return {sourced:sourced,warming:warming,connected:connected,replied:replied,meetings:meetings,total:sourced};
+}
+var STAGE_IDX={sourced:0,warming:1,connected:2,conversation:3,meeting:4};
 
-    <h3 style="margin:24px 0 6px 0;font-size:14px">1d. First post draft <span class="pill blue">voice = Direct</span></h3>
-    <p class="hint">Draft for the 2-posts/week cadence, on the core pain: AI everywhere, governance nowhere.</p>
-    <blockquote>
-      <p>Most companies don't have an AI adoption problem.<br>They have an AI <em>governance</em> problem.</p>
-      <p>Everyone's already using it. Twelve people, twelve tools, twelve versions of the same workflow, none of it repeatable and none of it owned.</p>
-      <p>The win isn't more AI. It's turning the good version into something your team owns and reuses.</p>
-    </blockquote>
-    <div class="decision" style="margin-top:10px"><span class="ok">OK queue it</span><span class="edit">edit text</span><span class="kill">kill</span></div>
-  </div>
+/* ============================ VIEWS ============================ */
+function vSidebar(){
+  var nav=NAV.map(function(n){
+    var active=S.screen===n.id;
+    var count=n.id==='prospects'&&S.people.length? '<span class="count">'+S.people.length+'</span>':'';
+    return '<button class="'+(active?'active':'')+'" onclick="A.go(\''+n.id+'\')">'+
+      '<span style="display:inline-flex;color:'+(active?'var(--teal-h)':'var(--faint)')+'">'+ic(ICONS[n.id],17)+'</span>'+
+      '<span style="flex:1">'+n.label+'</span>'+count+'</button>';
+  }).join('');
+  return '<aside class="sidebar">'+
+    '<div class="brand"><div class="logo">R</div><div class="who" style="min-width:0"><div class="n">Rellify</div><div class="r">Founder workspace</div></div></div>'+
+    '<div class="sb-div"></div>'+
+    '<div class="sb-eyebrow">Workspace</div>'+
+    '<nav class="nav">'+nav+'</nav>'+
+    '<div class="sb-bottom"><div class="user"><div class="av">R</div><div style="min-width:0;flex:1"><div class="n">Rellify</div><div class="r">AI workflow platform</div></div><span class="pro">PRO</span></div></div>'+
+  '</aside>';
+}
 
-  <!-- ============================================================ -->
-  <div class="section">
-    <h2>2. Prospect pool state <span class="pill blue">snapshot</span></h2>
-    <div class="stats">
-      <div class="stat"><div class="n">0</div><div class="l">Clean (active)</div></div>
-      <div class="stat"><div class="n">0</div><div class="l">Parked</div></div>
-      <div class="stat"><div class="n">0</div><div class="l">Invites pending you</div></div>
-      <div class="stat"><div class="n">0</div><div class="l">Apollo-sourced</div></div>
-    </div>
-    <div class="seg-list">
-      <div class="chip">ops_leaders_manufacturing <span class="c">0</span></div>
-      <div class="chip">ops_leaders_logistics <span class="c">0</span></div>
-      <div class="chip">ops_leaders_retail_ecom <span class="c">0</span></div>
-      <div class="chip">ops_leaders_bpo <span class="c">0</span></div>
-      <div class="chip">ai_signal_engaged <span class="c">0</span></div>
-    </div>
-    <p class="hint" style="margin-top:14px">Empty by design — this is Day 1. Segments above are the ICP buckets prospects will be tagged into as they're sourced.</p>
-  </div>
+function vTopbar(){
+  return '<header class="topbar">'+
+    '<div style="min-width:0"><div class="title">'+esc(TITLES[S.screen])+'</div><div class="date">Rellify · '+TODAY+'</div></div>'+
+    '<div class="spacer"></div>'+
+    '<button class="run" onclick="A.openPlan()">'+(S.running?
+      '<span style="width:13px;height:13px;border:2px solid rgba(255,255,255,0.5);border-top-color:#fff;border-radius:50%;display:inline-block;animation:spin .9s linear infinite"></span> Running…':
+      '<svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M6 4l14 8-14 8z"></path></svg> Run Agent')+'</button>'+
+    '<div class="vdiv"></div>'+
+    '<div class="tu"><div class="av">R</div><span class="n" style="font-weight:700;font-size:13px">Rellify</span><span class="pro">PRO</span></div>'+
+  '</header>';
+}
 
-  <!-- ============================================================ -->
-  <div class="section">
-    <h2>3. Today's plan (what runs once you reply)</h2>
-    <ul class="checklist">
-      <li><b>Step 0 — Sign in &amp; health check.</b> Log into the Rellify LinkedIn account; confirm account type, connection count, and any "too many invitations" or restriction flags.</li>
-      <li><b>Step 1 — Confirm ICP (1b) &amp; source.</b> Once filters are approved, pull the first 15–25 named prospects from Apollo and tag them into the segments above.</li>
-      <li><b>Step 2 — Profile optimization (1c).</b> If approved, produce the headline/About/featured/skills checklist tuned to the positioning.</li>
-      <li><b>Step 3 — Warmup only.</b> No invites or DMs Day 1. Identify each sourced prospect's latest post for a thoughtful comment tomorrow.</li>
-      <li><b>Step 4 — Content.</b> Queue the first post (1d) if approved; hold to the 2/week cadence.</li>
-      <li><b>Step 5 — End-of-session log.</b> Capture state for tomorrow's digest.</li>
-    </ul>
-  </div>
+/* ---------- Dashboard ---------- */
+function vDashboard(){
+  var hr=new Date().getHours();
+  var greet=(hr<12?'Good morning':hr<17?'Good afternoon':'Good evening');
+  var doy=Math.floor((Date.now()-new Date(new Date().getFullYear(),0,0))/86400000);
+  var q=QUOTES[doy%QUOTES.length];
+  var out='<div class="screen">';
 
-  <!-- ============================================================ -->
-  <div class="section">
-    <h2>4. Account health</h2>
-    <table>
-      <tr><td>Invites sent this session</td><td>0 <span class="pill blue">cap TBD — confirm account type</span></td></tr>
-      <tr><td>Acceptance rate trailing 7 days</td><td><span class="pill blue">N/A</span> — no invites sent yet</td></tr>
-      <tr><td>Reply rate to first DM trailing 7 days</td><td><span class="pill blue">N/A</span> — no DMs yet</td></tr>
-      <tr><td>"Too many invitations" warning</td><td>Verify on Step 0 after first login</td></tr>
-      <tr><td>Meeting link in rotation</td><td><span class="pill amber">needed</span> — add Rellify's booking/Calendly link (30-min meetings)</td></tr>
-    </table>
-  </div>
+  // greeting + quote
+  out+='<div style="display:flex;align-items:flex-end;justify-content:space-between;gap:20px;flex-wrap:wrap;padding:2px 4px">'+
+    '<div><div style="font-size:21px;font-weight:800;letter-spacing:-0.01em">'+greet+', Rellify</div>'+
+    '<div style="font-size:12.5px;color:var(--muted);font-weight:600;margin-top:2px">Here\'s where Rellify\'s outreach stands today.</div></div>'+
+    '<div style="max-width:520px;border-left:3px solid var(--teal);padding:2px 0 2px 14px">'+
+    '<div style="font-size:13px;line-height:1.5;color:var(--sec);font-style:italic">&ldquo;'+esc(q.t)+'&rdquo;</div>'+
+    '<div style="font-size:11.5px;font-weight:800;color:var(--teal-h);margin-top:3px">&mdash; '+esc(q.a)+'</div></div></div>';
 
-  <!-- ============================================================ -->
-  <div class="section">
-    <h2>5. Tomorrow (Wed 2026-07-22) — first warmup day</h2>
-    <ul class="checklist">
-      <li>Step 0 → accept any incoming invites matching ICP; note account flags.</li>
-      <li>Step 1 → comment on the latest post of 5 sourced prospects (warmup, no invite).</li>
-      <li>Step 2 → prep first connection-request notes (Direct voice, no pitch) for your approval.</li>
-      <li>Step 3 → hold DMs until connections accept.</li>
-    </ul>
-  </div>
+  // running bar
+  if(S.running){
+    var rt=(S._runTasks&&S._runTasks[S.runTaskIdx])?S._runTasks[S.runTaskIdx].title:'Starting up…';
+    out+='<div style="display:flex;align-items:center;gap:13px;background:#fff;border:1px solid #BFE0DA;border-radius:12px;padding:13px 18px">'+
+      '<div style="width:10px;height:10px;border-radius:50%;background:var(--teal);animation:pulse 1.6s infinite;flex-shrink:0"></div>'+
+      '<div style="flex:1;min-width:0"><div class="eyebrow" style="letter-spacing:0.08em">Agent running — current task</div><div style="font-size:13.5px;font-weight:700;margin-top:1px">'+esc(rt)+'</div></div>'+
+      '<div style="width:16px;height:16px;border:2px solid #CDE9E3;border-top-color:var(--teal);border-radius:50%;animation:spin .9s linear infinite"></div></div>';
+  }
 
-  <div class="footer">
-    Rellify LinkedIn outreach · Kickoff digest generated 2026-07-21.<br>
-    Strategy source: <code>ai-outreach-system/prompts/rellify_outreach_strategy.md</code>. Reply on this page or by email to unblock each item.
-  </div>
+  // approval panel
+  var postPending=S.postApproval!=='approved';
+  var approvals=(S.postApproval==='pending'?1:0)+(S.icpApproved?0:1);
+  if(postPending||!S.icpApproved){
+    out+='<div class="card" style="border-color:var(--amber-bd);overflow:hidden">'+
+      '<div style="display:flex;align-items:center;gap:10px;padding:14px 20px;background:var(--amber-tint2);border-bottom:1px solid var(--amber-bd)">'+
+        '<div style="width:26px;height:26px;border-radius:8px;background:var(--amber);display:grid;place-items:center;flex-shrink:0"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9v4 M12 17h.01 M10.3 3.9L1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"></path></svg></div>'+
+        '<div style="font-weight:800;font-size:14.5px;color:var(--amber-tx)">Waiting for your approval</div>'+
+        '<span class="mono" style="font-size:12px;font-weight:700;background:var(--amber);color:#fff;border-radius:20px;padding:2px 9px">'+approvals+'</span>'+
+        '<div class="spacer"></div><div style="font-size:11.5px;font-weight:700;color:var(--amber-tx)">Nothing sends without your sign-off</div></div>'+
+      '<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(400px,1fr))">';
+    // post approval column
+    if(postPending){
+      out+='<div style="padding:18px 20px;border-right:1px solid var(--hair)">'+
+        '<div style="display:flex;align-items:center;gap:8px;margin-bottom:10px"><span class="badge" style="background:var(--amber-tint);color:var(--amber-tx)">Content post</span><span style="font-size:11.5px;color:var(--faint);font-weight:700">Post #1 · first post</span></div>'+
+        '<div style="border:1px solid var(--border);border-radius:11px;background:#FAFCFB;padding:13px 15px;font-size:13px;line-height:1.6;color:var(--ink2)">'+esc(POST_BODY)+'</div>'+
+        '<div style="margin-top:10px;border:1px solid var(--border);border-radius:11px;padding:12px 15px"><div class="eyebrow" style="margin-bottom:5px">Why post this</div><div style="font-size:12.5px;line-height:1.55;color:var(--ink2)">'+esc(POST_WHY)+'</div></div>';
+      if(S.postApproval==='pending'&&!S.postAsk){
+        out+='<div style="display:flex;gap:8px;margin-top:12px"><button class="btn btn-teal" onclick="A.approvePost()">Approve &amp; schedule</button><button class="btn btn-out" onclick="A.rejectAsk()">Reject with note</button></div>';
+      }else if(S.postAsk){
+        out+='<div style="margin-top:12px;border:1px solid var(--amber-bd);border-radius:11px;background:var(--amber-tint2);padding:12px 14px">'+
+          '<div style="font-size:11.5px;font-weight:800;color:var(--amber-tx);margin-bottom:7px">Add a note — why are you rejecting this post? The agent learns from it.</div>'+
+          '<input id="postNote" class="f" placeholder="e.g. Too blunt — soften the opening line" style="border-color:#E3C68F">'+
+          '<div style="display:flex;gap:8px;margin-top:9px"><button class="btn btn-amber btn-sm" onclick="A.rejectConfirm()">Reject post</button><button class="btn btn-amber-out btn-sm" onclick="A.rejectCancel()">Cancel</button></div></div>';
+      }else if(S.postApproval==='held'){
+        out+='<div style="margin-top:12px;border:1px solid var(--border);border-radius:11px;background:#FAFCFB;padding:12px 14px"><div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap"><span class="badge chip-neutral">Rejected</span><span style="font-size:11.5px;color:var(--faint);font-weight:700">kept here for 1 day</span></div><div style="font-size:12.5px;color:var(--ink2);margin-top:7px"><b>Your note:</b> '+esc(S.postNote)+'</div><div style="font-size:11.5px;color:var(--teal-h);font-weight:700;margin-top:5px">Agent: noted — the next draft will reflect this.</div><button class="btn btn-out teal btn-xs" style="margin-top:9px" onclick="A.approvePost()">Changed my mind — approve</button></div>';
+      }
+      out+='</div>';
+    }
+    // ICP approval column (Rellify Day-1 replaces prospect recs)
+    out+='<div style="padding:18px 20px">'+
+      '<div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;flex-wrap:wrap"><span class="badge chip-teal">Sourcing</span><span style="font-size:11px;font-weight:800;background:var(--purple-tint);color:var(--purple);padding:3px 10px;border-radius:20px">No prospects sourced yet</span></div>';
+    if(!S.icpApproved){
+      out+='<div style="border:1px solid var(--border);border-radius:11px;padding:13px 15px">'+
+        '<div style="font-weight:800;font-size:13px;margin-bottom:4px">Approve the ICP to start sourcing</div>'+
+        '<div style="font-size:12px;color:var(--sec2);line-height:1.55;margin-bottom:10px">The agent will pull the first 15–25 prospects from Apollo that match these filters, then tag them into segments for your review.</div>'+
+        '<div style="display:flex;flex-direction:column;gap:6px;font-size:12.5px;color:var(--ink2)">'+
+          '<div><b style="color:var(--muted);font-weight:700">Titles:</b> COO / CIO / CTO + VP/Head of Ops, Digital Transformation, Automation/AI</div>'+
+          '<div><b style="color:var(--muted);font-weight:700">Size:</b> 20–500 employees · <b style="color:var(--muted);font-weight:700">Geo:</b> United States</div>'+
+          '<div><b style="color:var(--muted);font-weight:700">Industries:</b> Manufacturing · Logistics · Retail/E-com · BPO</div></div>'+
+        '<div style="display:flex;gap:8px;margin-top:12px"><button class="btn btn-teal btn-sm" onclick="A.approveIcp()">Approve ICP &amp; queue sourcing</button><button class="btn btn-out btn-sm" onclick="A.go(\'strategy\')">Edit in Strategy</button></div></div>';
+    }else{
+      out+='<div style="border:1px solid var(--green-bd);border-radius:11px;background:var(--green-tint);padding:13px 15px"><div style="display:flex;align-items:center;gap:8px"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"></path></svg><span style="font-weight:800;font-size:13px;color:var(--green-tx2)">ICP approved — sourcing queued</span></div><div style="font-size:12px;color:var(--green-tx);line-height:1.55;margin-top:6px">The next agent session will source the first prospect batch and it will appear here for review.</div></div>';
+    }
+    out+='</div></div></div>';
+  }
 
-</div>
+  // HERO momentum
+  var pc=pipelineCounts();
+  var stages=[['Sourced',pc.sourced],['Warming',pc.warming],['Connected',pc.connected],['Replied',pc.replied],['Meetings',pc.meetings]];
+  var furthest=-1;stages.forEach(function(st,i){if(st[1]>0)furthest=i;});
+  var mlPre='Your ICP is set — you’re ',mlAccent='one approval away',mlPost=' from a live pipeline.';
+  if(S.icpApproved){mlPre='Sourcing is queued — Rellify is ';mlAccent='ready to build';mlPost=' your first prospect list.';}
+  var winChips=[['15+ yrs','account age'],['4k+','connections'],['2/wk','posting cadence'],['US','target market']];
+  out+='<div style="position:relative;overflow:hidden;background:#fff;border:1px solid var(--border);border-radius:20px;padding:26px 28px 24px;box-shadow:var(--shadow-hero)">'+
+    '<svg viewBox="0 0 420 260" style="position:absolute;top:-10px;right:-30px;width:420px;height:260px;pointer-events:none" aria-hidden="true">'+
+    '<line x1="60" y1="200" x2="150" y2="120" stroke="#0E8577" stroke-opacity="0.14" stroke-width="1.5"></line><line x1="150" y1="120" x2="265" y2="80" stroke="#0E8577" stroke-opacity="0.14" stroke-width="1.5"></line><line x1="150" y1="120" x2="230" y2="190" stroke="#0E8577" stroke-opacity="0.14" stroke-width="1.5"></line><line x1="265" y1="80" x2="360" y2="140" stroke="#0E8577" stroke-opacity="0.2" stroke-width="1.5"></line><line x1="230" y1="190" x2="360" y2="140" stroke="#0E8577" stroke-opacity="0.14" stroke-width="1.5"></line>'+
+    '<circle cx="60" cy="200" r="5" fill="#0E8577" fill-opacity="0.18"></circle><circle cx="150" cy="120" r="7" fill="#0E8577" fill-opacity="0.28"></circle><circle cx="265" cy="80" r="6" fill="#0E8577" fill-opacity="0.2"></circle><circle cx="230" cy="190" r="5" fill="#0E8577" fill-opacity="0.16"></circle><circle cx="360" cy="140" r="9" fill="#1E9A5A"></circle><circle cx="360" cy="140" r="15" fill="none" stroke="#1E9A5A" stroke-opacity="0.3" stroke-width="2"></circle><circle cx="410" cy="70" r="5" fill="#F4C96E"></circle></svg>'+
+    '<div style="position:relative;display:flex;align-items:flex-start;gap:16px;flex-wrap:wrap"><div style="flex:1;min-width:300px">'+
+    '<div style="display:inline-flex;align-items:center;gap:8px;background:var(--amber-tint);border:1px solid var(--amber-bd);border-radius:30px;padding:5px 13px"><span style="width:7px;height:7px;border-radius:50%;background:var(--amber);display:inline-block"></span><span style="font-size:11px;font-weight:800;letter-spacing:0.07em;text-transform:uppercase;color:var(--amber-tx)">Setup stage · first session not run yet</span></div>'+
+    '<div style="font-size:27px;font-weight:800;letter-spacing:-0.015em;line-height:1.32;margin-top:14px;max-width:620px">'+esc(mlPre)+'<span style="font-family:\'Newsreader\',serif;font-style:italic;font-weight:600;color:var(--teal);font-size:30px">'+esc(mlAccent)+'</span>'+esc(mlPost)+'</div>'+
+    '<div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:14px">'+winChips.map(function(w){return '<span style="display:inline-flex;align-items:baseline;gap:6px;background:var(--teal-soft);border:1px solid #D8EAE5;border-radius:9px;padding:6px 12px"><span class="mono" style="font-weight:800;font-size:14px;color:var(--teal)">'+w[0]+'</span><span style="font-size:11.5px;font-weight:700;color:var(--sec2)">'+w[1]+'</span></span>';}).join('')+'</div></div>'+
+    '<button class="btn btn-out teal" style="height:36px" onclick="A.go(\'strategy\')">View strategy</button></div>'+
+    '<div style="position:relative;border-top:1px solid var(--border-soft);margin-top:20px;padding-top:18px"><div style="display:flex;align-items:flex-start">'+
+    stages.map(function(st,i){
+      var n=st[1],last=i===stages.length-1;
+      var pillBg=n>0?'#1E9A5A':'#fff',pillCol=n>0?'#fff':'var(--faint)',pillBd=n>0?'#1E9A5A':'#D5DDDB';
+      var labCol=n>0?'var(--ink)':'var(--faint)';
+      var isNext=n===0&&i===furthest+1;
+      var lineBg=i<furthest?'#1E9A5A':'var(--border)';
+      var seg='<div style="flex:'+(last?0:1)+';display:flex;align-items:flex-start">'+
+        '<div title="View these prospects" onclick="A.go(\'prospects\')" style="display:flex;flex-direction:column;align-items:center;gap:5px;min-width:66px;cursor:pointer;border-radius:10px;padding:5px 7px;margin:-5px -7px">'+
+        '<div class="mono" style="min-width:36px;height:28px;padding:0 10px;border-radius:20px;display:grid;place-items:center;font-weight:800;font-size:14px;background:'+pillBg+';color:'+pillCol+';border:2px solid '+pillBd+'">'+n+'</div>'+
+        '<div style="font-size:10px;font-weight:700;letter-spacing:0.05em;text-transform:uppercase;color:'+labCol+'">'+st[0]+'</div>'+
+        (isNext?'<div style="font-size:9.5px;font-weight:800;background:var(--amber-tint);color:var(--amber-tx);border:1px solid var(--amber-bd);padding:2px 8px;border-radius:20px;white-space:nowrap">next milestone</div>':'')+
+        '</div>'+(last?'':'<div style="flex:1;height:2px;background:'+lineBg+';margin-top:14px"></div>')+'</div>';
+      return seg;
+    }).join('')+'</div></div></div>';
+
+  // two-column: activity | needs attention
+  out+='<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(380px,1fr));gap:16px;align-items:start">'+
+    '<div class="card pad"><div style="display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin-bottom:12px"><div class="h-title">Today\'s activity</div><span class="mono" style="font-size:11px;color:var(--faint);font-weight:700">2026-07-21</span></div>'+
+      '<div class="empty"><b>No actions yet</b>Rellify hasn\'t run a session. Approve your ICP to start sourcing, then every like, comment and message shows up here — fully logged.</div></div>'+
+    '<div class="card pad"><div style="display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin-bottom:14px"><div class="h-title">Needs attention</div><button class="btn btn-out teal btn-sm" style="border:none;padding:0;background:none;height:auto" onclick="A.go(\'prospects\')">View pipeline →</button></div>'+
+      '<div style="background:var(--amber-tint);border:1px solid var(--amber-bd);border-radius:11px;padding:12px 14px"><div style="font-size:12px;font-weight:800;color:var(--amber-tx);margin-bottom:3px">'+(S.icpApproved?'Sourcing queued — no prospects to review yet':'Approve your ICP to unblock sourcing')+'</div><div style="font-size:12.5px;line-height:1.55;color:var(--amber-tx2)">'+(S.icpApproved?'The next session will populate the pipeline. Nothing else is blocked.':'No prospects can be sourced until the ICP filters are approved.')+'</div>'+(S.icpApproved?'':'<button class="btn btn-amber-out btn-sm" style="margin-top:9px" onclick="A.approveIcp()">Approve ICP</button>')+'</div>'+
+      '<div style="margin-top:10px;font-size:12px;color:var(--muted);font-weight:600">'+(S.postApproval==='approved'?'Post #1 is approved and scheduled.':'Posting is paused — Post #1 is awaiting your approval.')+'</div></div></div>';
+
+  // tomorrow's plan
+  out+=vTomorrow();
+  out+='</div>';
+  return out;
+}
+
+function vTomorrow(){
+  var steps=[
+    {n:'1',title:'Confirm account health',expected:'Log into the Rellify account; read connection count, account type and any restriction flags.'},
+    {n:'2',title:'Source first Apollo batch (15–25)',expected:'Pull approved-ICP prospects and tag them into segments.',you:S.icpApproved?null:'Approve the ICP before sourcing can run'},
+    {n:'3',title:'Warm up 5 prospects',expected:'Comment thoughtfully on 5 prospects’ latest posts. No invite, no DM on Day 1.'},
+    {n:'4',title:'Draft connection-request notes',expected:'Prepare Direct-voice, no-pitch invite drafts for your approval.'}
+  ];
+  var targets=[['15–25','to source'],['5','warmups'],['0','invites'],['2/wk','posts']];
+  var out='<div class="card pad"><div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:4px"><div style="font-weight:800;font-size:15px">Tomorrow\'s plan</div><span class="chip chip-neutral" style="border-radius:20px">Next session · runs on request</span><div class="spacer"></div><div style="display:flex;gap:7px;flex-wrap:wrap">'+
+    targets.map(function(t){return '<span style="display:inline-flex;align-items:baseline;gap:5px;border:1px solid var(--border);border-radius:8px;padding:4px 10px;background:#FAFCFB"><span class="mono" style="font-weight:700;font-size:13px">'+t[0]+'</span><span style="font-size:11px;font-weight:700;color:var(--muted)">'+t[1]+'</span></span>';}).join('')+'</div></div>'+
+    '<div style="display:flex;flex-direction:column">'+steps.map(function(s){
+      return '<div style="display:flex;gap:14px;align-items:flex-start;padding:13px 0;border-bottom:1px solid var(--border-soft)"><div style="width:26px;height:26px;border-radius:50%;background:var(--teal-tint);color:var(--teal-h);display:grid;place-items:center;font-weight:800;font-size:12.5px;flex-shrink:0;margin-top:1px">'+s.n+'</div><div style="min-width:0"><div style="font-weight:800;font-size:13.5px">'+esc(s.title)+'</div><div style="font-size:12.5px;line-height:1.55;color:var(--sec2);margin-top:3px"><span style="font-weight:700;color:var(--sec)">Expected:</span> '+esc(s.expected)+'</div>'+(s.you?'<div style="display:inline-flex;gap:7px;margin-top:7px;background:var(--amber-tint);border:1px solid var(--amber-bd);border-radius:8px;padding:6px 11px;font-size:12.5px;color:var(--amber-tx);font-weight:700">You: '+esc(s.you)+'</div>':'')+'</div></div>';
+    }).join('')+'</div>'+
+    '<div style="display:flex;gap:10px;margin-top:14px;flex-wrap:wrap"><button class="btn btn-out" onclick="A.toggleChecks()"><span style="color:var(--teal)">'+(S.checksOpen?'▾':'▸')+'</span> Pre-session checks · 3</button><button class="btn btn-amber-out" onclick="A.toggleQuestion()"><span>'+(S.questionOpen?'▾':'▸')+'</span> 1 open question for you</button></div>'+
+    (S.checksOpen?'<div style="margin-top:12px;border:1px solid var(--border-soft);border-radius:11px;padding:13px 16px;background:#FAFCFB;display:flex;flex-direction:column;gap:8px">'+
+      ['LinkedIn session must be active before sourcing','Only approved prospects are ever contacted','Profile views + likes only until the account is warmed up'].map(function(c){return '<div style="display:flex;gap:9px;align-items:flex-start;font-size:12.5px;color:var(--ink2);line-height:1.5"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:2px"><path d="M20 6L9 17l-5-5"></path></svg><span>'+esc(c)+'</span></div>';}).join('')+'</div>':'')+
+    (S.questionOpen?'<div style="margin-top:12px;border:1px solid var(--amber-bd);border-radius:11px;padding:14px 16px;background:var(--amber-tint2)"><div style="font-size:13px;font-weight:800;color:var(--amber-tx)">What\'s the LinkedIn account type — free, Premium, or Sales Navigator?</div><div style="font-size:12.5px;color:var(--amber-tx2);line-height:1.55;margin-top:4px">This sets the daily invite cap and search reach before the first sourcing run.</div></div>':'')+
+    '</div>';
+  return out;
+}
+
+/* ---------- Prospects ---------- */
+function vProspects(){
+  var pc=pipelineCounts();
+  var FILTERS=[['all','All',pc.total],['sourced','Sourced',pc.sourced],['warming','Warming',pc.warming],['connected','Connected',pc.connected],['conversation','Conversation',pc.replied],['meeting','Meeting set',pc.meetings]];
+  var out='<div class="screen">'+
+    '<div class="row-wrap"><div><div class="page-h">Prospects</div><div class="page-sub">'+pc.total+' prospects · only approved prospects are contacted</div></div><div class="spacer"></div>'+
+    '<button class="btn btn-teal" onclick="A.openAdd()">+ Add prospect</button>'+
+    '<button class="btn btn-out" onclick="A.toast(\'Sourcing runs once the ICP is approved — the agent imports matching prospects from Apollo\')">Source from Apollo</button>'+
+    '<button class="btn btn-out" onclick="A.toast(\'Upload CSV — available once prospects exist\')">Upload CSV</button></div>'+
+    '<div style="display:flex;gap:7px;flex-wrap:wrap">'+FILTERS.map(function(f){var on=S.filter===f[0];return '<button class="btn" style="height:30px;padding:0 13px;border-radius:20px;font-size:12px;background:'+(on?'var(--teal)':'#fff')+';color:'+(on?'#fff':'var(--sec)')+';border:1px solid '+(on?'var(--teal)':'var(--border)')+'" onclick="A.setFilter(\''+f[0]+'\')">'+f[1]+' <span class="mono" style="font-size:10.5px;opacity:.75">'+f[2]+'</span></button>';}).join('')+'</div>';
+
+  var rows=S.people.filter(function(p){return S.filter==='all'||p.stageIdx===STAGE_IDX[S.filter];});
+  if(!rows.length){
+    out+='<div class="card pad"><div class="empty"><b>No prospects yet</b>'+(S.icpApproved?'Your ICP is approved — the next agent session sources the first 15–25 prospects and they\'ll list here.':'Approve your ICP (Strategy tab or the dashboard) and source the first batch from Apollo. You can also add prospects manually with <b style="display:inline">+ Add prospect</b>.')+'</div></div>';
+  }else{
+    out+='<div class="card" style="overflow:hidden"><div style="display:grid;grid-template-columns:2fr 1.4fr 1.9fr 0.7fr 2fr;gap:12px;padding:11px 18px;border-bottom:1px solid var(--border-soft);background:#FAFCFB">'+
+      ['Prospect','Company','Pipeline journey','Score','Next step'].map(function(h){return '<div class="eyebrow">'+h+'</div>';}).join('')+'</div>';
+    var AV=[['#E4F2EF','#0B6B60'],['#FBF1E1','#8F5410'],['#EDEAF8','#5B4AA8'],['#FCEBE8','#A8503F']];
+    var STAGES=['Sourced','Warming','Connected','Conversation','Meeting set'];
+    rows.forEach(function(p,i){
+      var idx=S.people.indexOf(p);var expanded=S.expandKey===p.name;
+      var dots=STAGES.map(function(st,si){var done=si<p.stageIdx,cur=si===p.stageIdx;var bg=done?'#0E8577':'#fff',bd=(done||cur)?'#0E8577':'#D6DEDC';return '<div style="display:flex;align-items:center"><div title="'+st+'" style="width:12px;height:12px;border-radius:50%;background:'+bg+';border:2px solid '+bd+';box-sizing:border-box"></div>'+(si<4?'<div style="width:17px;height:2px;background:'+(si<p.stageIdx?'#0E8577':'var(--border)')+'"></div>':'')+'</div>';}).join('');
+      out+='<div><button style="display:grid;grid-template-columns:2fr 1.4fr 1.9fr 0.7fr 2fr;gap:12px;padding:12px 18px;border:none;border-bottom:1px solid var(--hair);align-items:center;width:100%;text-align:left;cursor:pointer;font-family:inherit;background:'+(expanded?'#FAFCFB':'#fff')+'" onclick="A.toggleRow(\''+esc(p.name).replace(/'/g,"\\'")+'\')">'+
+        '<div style="display:flex;align-items:center;gap:10px;min-width:0"><div style="width:30px;height:30px;border-radius:50%;background:'+AV[i%4][0]+';color:'+AV[i%4][1]+';display:grid;place-items:center;font-weight:800;font-size:11px;flex-shrink:0">'+initials(p.name)+'</div><div style="min-width:0"><div style="font-weight:800;font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">'+esc(p.name)+'</div><div style="font-size:11.5px;color:var(--muted);font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">'+esc(p.title)+'</div></div></div>'+
+        '<div style="font-size:12.5px;font-weight:700;color:var(--sec)">'+esc(p.company)+'</div>'+
+        '<div><div style="display:flex;align-items:center">'+dots+'</div><div style="font-size:11px;font-weight:800;margin-top:5px;color:var(--sec2)">'+esc(p.stage)+' — stage '+(p.stageIdx+1)+' of 5</div></div>'+
+        '<div><div class="mono" style="font-weight:700;font-size:13.5px">'+p.score+'</div><div style="font-size:10.5px;font-weight:800;color:var(--teal);margin-top:2px">why '+(expanded?'▾':'▸')+'</div></div>'+
+        '<div style="font-size:12px;color:var(--sec2);line-height:1.45">'+esc(p.next)+'</div></button>';
+      if(expanded){
+        var WHY=['Role & industry fit','Engagement signals','Posting activity','Reachability'],WMAX=[40,30,20,10];
+        out+='<div style="padding:16px 20px 18px 58px;background:#FAFCFB;border-bottom:1px solid var(--border-soft);display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:22px;align-items:start">'+
+          '<div><div class="eyebrow" style="margin-bottom:9px">Pipeline journey</div><div style="display:flex;flex-direction:column">'+STAGES.map(function(st,si){var done=si<p.stageIdx,cur=si===p.stageIdx;var note=(p.jn&&p.jn[si])||(done?'Completed':cur?'In progress':'Not started yet');return '<div style="display:flex;gap:11px;align-items:stretch"><div style="display:flex;flex-direction:column;align-items:center;flex-shrink:0"><div style="width:12px;height:12px;border-radius:50%;margin-top:3px;box-sizing:border-box;background:'+(done?'#0E8577':'#fff')+';border:2px solid '+((done||cur)?'#0E8577':'#D6DEDC')+'"></div>'+(si<4?'<div style="width:2px;flex:1;background:var(--border);margin:2px 0"></div>':'')+'</div><div style="padding-bottom:12px;min-width:0"><div style="font-size:12.5px;font-weight:800;color:'+(si>p.stageIdx?'var(--faint)':'var(--ink)')+'">'+st+' <span class="mono" style="font-weight:700;color:var(--faint);font-size:10.5px">'+esc((p.when&&p.when[si])||'')+'</span></div><div style="font-size:12px;color:var(--sec2);line-height:1.5;margin-top:1px">'+esc(note)+'</div></div></div>';}).join('')+'</div></div>'+
+          '<div><div class="eyebrow" style="margin-bottom:9px">Why the score is '+p.score+'</div><div style="display:flex;flex-direction:column;gap:10px">'+p.why.map(function(w,wi){return '<div><div style="display:flex;justify-content:space-between;gap:10px;font-size:12px;font-weight:800;color:var(--sec)"><span>'+WHY[wi]+'</span><span class="mono" style="font-weight:700">'+w[0]+'/'+WMAX[wi]+'</span></div><div style="height:6px;background:var(--chip);border-radius:4px;margin-top:4px;overflow:hidden"><div style="height:100%;background:var(--teal);border-radius:4px;width:'+Math.round(w[0]/WMAX[wi]*100)+'%"></div></div>'+(w[1]?'<div style="font-size:11.5px;color:var(--muted);margin-top:3px">'+esc(w[1])+'</div>':'')+'</div>';}).join('')+'</div></div>'+
+          '<div style="grid-column:1/-1;display:flex;gap:9px;border-top:1px solid var(--border-soft);padding-top:13px"><button class="btn btn-out teal btn-sm" onclick="A.openEdit('+idx+')">Edit prospect</button><button class="btn btn-sm" style="border:1px solid '+(S.confirmDelKey===p.name?'var(--danger)':'var(--danger-bd)')+';background:'+(S.confirmDelKey===p.name?'var(--danger)':'#fff')+';color:'+(S.confirmDelKey===p.name?'#fff':'var(--danger)')+'" onclick="A.delAsk(\''+esc(p.name).replace(/'/g,"\\'")+'\')">'+(S.confirmDelKey===p.name?'Confirm delete?':'Delete')+'</button></div></div>';
+      }
+      out+='</div>';
+    });
+    out+='</div>';
+  }
+  out+='</div>';return out;
+}
+
+/* ---------- Activity ---------- */
+function vActivity(){
+  return '<div class="screen narrow"><div><div class="page-h">Activity</div><div class="page-sub">A complete log of every action taken on your behalf</div></div>'+
+    '<div class="card pad"><div class="empty"><b>No activity yet</b>Rellify hasn\'t run a session. Once you approve the ICP and the agent runs, every comment, like, message and review appears here — each with the reasoning behind it and a place to give feedback.</div></div>'+
+    '<div style="font-size:12px;color:var(--muted);font-weight:600;text-align:center">Tip: use <b style="color:var(--sec)">Run Agent</b> (top right) to review and approve the first session plan.</div></div>';
+}
+
+/* ---------- Strategy (fully populated from onboarding) ---------- */
+function vStrategy(){
+  var titles=['COO','CIO','CTO','VP / Head of Operations','Head of Digital Transformation','Head of AI / Automation'];
+  var gates=['Mid-market: 20–500 employees','United States','Manufacturing · Logistics · Retail/E-com · BPO'];
+  var guardrails=['Only approved prospects are contacted','New prospects require your approval before any outreach','Profile views + likes only until the account is warmed up','One message at a time — no follow-up until the prospect replies'];
+  var cadence=[['—','likes/day (set after account-type check)'],['—','comments/day'],['0','connection requests (Day 1 — warmup only)'],['2','posts per week']];
+  var angles=['AI governance — everyone’s using AI, nobody owns it','Reuse — turning the good prompt into a repeatable workflow','Ownership — your own safe agents on your own data vs a black box'];
+  return '<div class="screen" style="max-width:1060px"><div style="background:#0E3B36;border-radius:16px;padding:24px 26px;color:#fff">'+
+    '<div style="font-size:11px;font-weight:700;letter-spacing:0.09em;text-transform:uppercase;color:#8FC7BE">Operating strategy</div>'+
+    '<div style="font-size:20px;font-weight:800;letter-spacing:-0.01em;margin-top:8px;max-width:760px;line-height:1.4">Get Rellify in front of mid-market ops and tech leaders adopting AI without governance — earn replies with a free reusable blueprint, and turn warm conversations into 30-minute demos.</div>'+
+    '<div style="display:flex;gap:22px;flex-wrap:wrap;margin-top:16px">'+[['Owner','Rellify'],['Focus area','AI workflow governance'],['Schedule','Runs on request'],['Posting','2 posts / week']].map(function(f){return '<div><div style="font-size:10.5px;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;color:#8FC7BE">'+f[0]+'</div><div style="font-weight:700;font-size:13px;margin-top:2px">'+f[1]+'</div></div>';}).join('')+'</div></div>'+
+    '<div class="grid-auto">'+
+      '<div class="card pad"><div class="h-title" style="margin-bottom:10px">Target prospect</div><div style="font-size:13px;line-height:1.6;color:var(--ink2);margin-bottom:12px">COO / CIO / CTO and their operations & transformation leads at mid-market US companies that are adopting AI but lack cohesion or governance. Prospects are added only after your approval.</div>'+
+        '<div class="eyebrow" style="margin-bottom:7px">Titles</div><div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px">'+titles.map(function(t){return '<span class="chip chip-teal">'+t+'</span>';}).join('')+'</div>'+
+        '<div class="eyebrow" style="margin-bottom:7px">Requirements</div><div style="display:flex;flex-wrap:wrap;gap:6px">'+gates.map(function(g){return '<span class="chip chip-amber">'+g+'</span>';}).join('')+'</div></div>'+
+      '<div class="card pad"><div class="h-title" style="margin-bottom:10px">Safety rules</div><div style="display:flex;flex-direction:column;gap:9px">'+guardrails.map(function(g){return '<div style="display:flex;gap:9px;align-items:flex-start;font-size:13px;color:var(--ink2);line-height:1.55"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:3px"><path d="M12 22s8-3.5 8-10V5l-8-3-8 3v7c0 6.5 8 10 8 10z"></path></svg><span>'+esc(g)+'</span></div>';}).join('')+'</div></div>'+
+      '<div class="card pad"><div class="h-title" style="margin-bottom:10px">Daily limits</div><div style="display:flex;flex-direction:column;gap:8px">'+cadence.map(function(c){return '<div style="display:flex;align-items:center;gap:11px"><span class="mono" style="font-weight:700;font-size:15px;width:22px;text-align:right">'+c[0]+'</span><span style="font-size:13px;font-weight:700;color:var(--sec)">'+esc(c[1])+'</span></div>';}).join('')+'</div></div>'+
+      '<div class="card pad"><div class="h-title" style="margin-bottom:10px">Content angles</div><div style="display:flex;flex-direction:column;gap:9px">'+angles.map(function(a){return '<div style="display:flex;gap:9px;align-items:flex-start;font-size:13px;color:var(--ink2);line-height:1.55"><span style="color:var(--teal);font-weight:800;flex-shrink:0">→</span><span>'+esc(a)+'</span></div>';}).join('')+'</div></div>'+
+    '</div>'+
+    '<div class="card pad"><div class="h-title">Update strategy with AI</div><div class="page-sub" style="margin-bottom:12px">Tell the agent to adjust targeting or tone — e.g. &ldquo;focus on manufacturers over 200 employees&rdquo; or &ldquo;more posts about governance&rdquo;</div><div style="display:flex;gap:10px"><input class="f" style="flex:1;height:40px" placeholder="e.g. Prioritize logistics &amp; supply-chain COOs…"><button class="btn btn-teal btn-lg" onclick="A.toast(\'Prototype — the AI would update the strategy\')">Update strategy</button></div></div>'+
+  '</div>';
+}
+
+/* ---------- Content ---------- */
+function vContent(){
+  var status,stBg,stCol,when,metrics,held;
+  if(S.postApproval==='approved'){status='Scheduled';stBg='var(--teal-tint)';stCol='var(--teal-h)';when='Next posting slot';metrics='Approved by you · publishes automatically';held=false;}
+  else if(S.postApproval==='held'){status='On hold';stBg='var(--amber-tint)';stCol='var(--amber-tx)';when='rejected — re-queue';metrics='';held=false;}
+  else{status='On hold';stBg='var(--amber-tint)';stCol='var(--amber-tx)';when='awaiting approval';metrics='';held=true;}
+  return '<div class="screen" style="max-width:1060px"><div class="row-wrap"><div><div class="page-h">Content</div><div class="page-sub">You approve every post before it publishes · 2 posts/week cadence</div></div><div class="spacer"></div><button class="btn btn-teal" style="height:36px" onclick="A.toast(\'Prototype — the AI would draft a new post for review\')">✦ Generate post with AI</button></div>'+
+    (S.postApproval==='approved'?'':'<div style="background:var(--amber-tint);border:1px solid var(--amber-bd);border-radius:12px;padding:12px 16px;font-size:13px;font-weight:700;color:var(--amber-tx)">Posting is paused — Post #1 is awaiting your approval.</div>')+
+    '<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:14px;align-items:start">'+
+      '<div class="card" style="padding:16px 18px;display:flex;flex-direction:column;gap:10px"><div style="display:flex;align-items:center;gap:8px"><span class="badge" style="background:'+stBg+';color:'+stCol+'">'+status+'</span><span class="mono" style="font-size:11.5px;color:var(--faint);font-weight:700">'+when+'</span></div>'+
+        '<div style="font-size:13px;line-height:1.6;color:var(--ink2)">'+esc(POST_BODY)+'</div>'+
+        (metrics?'<div style="font-size:12px;color:var(--muted);font-weight:700">'+esc(metrics)+'</div>':'')+
+        (held?'<div style="display:flex;gap:8px"><button class="btn btn-teal btn-sm" onclick="A.approvePost()">Approve &amp; schedule</button><button class="btn btn-out btn-sm" onclick="A.toast(\'Post #1 stays on hold\')">Keep on hold</button></div>':'')+'</div>'+
+      '<div class="card pad" style="display:flex;flex-direction:column;justify-content:center"><div class="empty" style="border:none;background:none;padding:8px"><b>More drafts appear here</b>At 2 posts/week the agent drafts ahead and queues each one for your approval. Posted content will show impressions and engagement.</div></div>'+
+    '</div></div>';
+}
+
+/* ---------- Conversations ---------- */
+function vConversations(){
+  return '<div class="screen" style="max-width:1060px"><div class="row-wrap"><div><div class="page-h">Conversations</div><div class="page-sub">LinkedIn inbox replies &amp; AI-drafted responses — you review before anything sends</div></div><div class="spacer"></div><button class="btn btn-out" onclick="A.toast(\'Inbox refreshed\')">↻ Refresh inbox</button></div>'+
+    '<div class="card pad"><div class="empty"><b>No conversations yet</b>Once prospects accept connections and reply, their threads land here. Rellify drafts a suggested reply for each — you approve or edit before it ever sends.</div></div></div>';
+}
+
+/* ---------- Analytics ---------- */
+function vAnalytics(){
+  var stats=[['Connections','4,000+','Account baseline'],['Profile views','—','No data yet — first session pending'],['Post impressions','—','Starts after Post #1 publishes'],['Prospects sourced','0','Awaiting ICP approval']];
+  return '<div class="screen" style="max-width:1060px"><div><div class="page-h">Analytics</div><div class="page-sub">Network growth, engagement and pipeline velocity — populates after the first session</div></div>'+
+    '<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px">'+stats.map(function(s){return '<div class="card pad"><div class="eyebrow">'+s[0]+'</div><div style="display:flex;align-items:baseline;gap:8px;margin-top:4px"><span class="mono" style="font-size:26px;font-weight:800;letter-spacing:-0.02em">'+s[1]+'</span></div><div style="font-size:11.5px;color:var(--faint);font-weight:600;margin-top:3px">'+esc(s[2])+'</div></div>';}).join('')+'</div>'+
+    '<div class="card pad"><div class="h-title" style="margin-bottom:10px">Nothing to chart yet</div><div class="empty" style="border:none;background:none">Impression trends, agent-action mix and top-engaged prospects appear here after the first agent session runs. Approve your ICP and hit <b style="display:inline">Run Agent</b> to begin.</div></div></div>';
+}
+
+/* ---------- Modals ---------- */
+function vPlanModal(){
+  if(!S.planOpen)return '';
+  var onCount=S.planOn.filter(Boolean).length;
+  return '<div class="overlay" onclick="A.closePlan()"><div class="modal" onclick="event.stopPropagation()">'+
+    '<div style="font-weight:800;font-size:16px">Today\'s plan</div><div class="page-sub" style="margin-bottom:16px">Review what the agent will do. Untick anything you don\'t want to run, then approve.</div>'+
+    '<div style="display:flex;flex-direction:column;gap:9px">'+PLAN_TASKS.map(function(t,i){var on=S.planOn[i];return '<button onclick="A.togglePlan('+i+')" style="display:flex;gap:12px;align-items:flex-start;width:100%;text-align:left;cursor:pointer;font-family:inherit;border:1px solid '+(on?'#BFE0DA':'var(--border)')+';background:'+(on?'#F7FBFA':'#fff')+';border-radius:12px;padding:12px 14px"><div style="width:20px;height:20px;border-radius:6px;display:grid;place-items:center;flex-shrink:0;margin-top:1px;border:2px solid '+(on?'var(--teal)':'#C6D0CE')+';background:'+(on?'var(--teal)':'#fff')+'">'+(on?'<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"></path></svg>':'')+'</div><div style="min-width:0"><div style="font-weight:800;font-size:13.5px;color:'+(on?'var(--ink)':'var(--faint)')+'">'+esc(t.title)+'</div><div style="font-size:12.5px;color:var(--muted);line-height:1.5;margin-top:2px">'+esc(t.desc)+'</div></div></button>';}).join('')+'</div>'+
+    '<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:15px"><div style="border:1px solid var(--border-soft);background:#FAFCFB;border-radius:11px;padding:11px 14px"><div class="eyebrow">Estimated duration</div><div style="font-weight:800;font-size:13.5px;margin-top:3px">'+(onCount?(onCount*3)+'–'+(onCount*4)+' minutes':'—')+'</div></div><div style="border:1px solid var(--border-soft);background:#FAFCFB;border-radius:11px;padding:11px 14px"><div class="eyebrow">Expected outcomes</div><div style="font-weight:800;font-size:13.5px;margin-top:3px">account check · first sourcing · warmups</div></div></div>'+
+    '<div style="display:flex;gap:10px;margin-top:18px"><button class="btn btn-teal btn-lg" style="flex:1" onclick="A.approvePlan()">✓ Approve &amp; start agent</button><button class="btn btn-out btn-lg" onclick="A.closePlan()">Cancel</button></div></div></div>';
+}
+function vEditorModal(){
+  if(!S.editorOpen)return '';
+  var p=S.editorIdx!=null?S.people[S.editorIdx]:null;
+  return '<div class="overlay" onclick="A.closeEditor()"><div class="modal" style="width:520px" onclick="event.stopPropagation()">'+
+    '<div style="font-weight:800;font-size:16px">'+(p?'Edit prospect':'Add prospect')+'</div><div class="page-sub" style="margin-bottom:16px">Manually added prospects follow the same rules — no outreach happens until they\'re approved.</div>'+
+    '<div style="display:flex;flex-direction:column;gap:13px">'+
+      '<div><div style="font-size:12px;font-weight:800;margin-bottom:5px">Full name <span style="color:var(--danger)">*</span></div><input id="eName" class="f" placeholder="e.g. Priya Iyer" value="'+esc(p?p.name:'')+'"></div>'+
+      '<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px"><div><div style="font-size:12px;font-weight:800;margin-bottom:5px">Title</div><input id="eTitle" class="f" placeholder="e.g. COO" value="'+esc(p?p.title:'')+'"></div><div><div style="font-size:12px;font-weight:800;margin-bottom:5px">Company</div><input id="eCompany" class="f" placeholder="e.g. Northwind Logistics" value="'+esc(p&&p.company!=='—'?p.company:'')+'"></div></div>'+
+      '<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px"><div><div style="font-size:12px;font-weight:800;margin-bottom:5px">Pipeline stage</div><select id="eStage" class="f">'+['Approved','Warming','Connected','Conversation','Meeting set'].map(function(o){var v=o==='Approved'?'Approved':o;return '<option '+((p&&p.stage===o)?'selected':'')+' value="'+o+'">'+o+'</option>';}).join('')+'</select></div><div><div style="font-size:12px;font-weight:800;margin-bottom:5px">Score <span style="color:var(--faint);font-weight:600">(0–100)</span></div><input id="eScore" class="f mono" type="number" min="0" max="100" value="'+esc(p?p.score:60)+'"></div></div>'+
+      '<div><div style="font-size:12px;font-weight:800;margin-bottom:5px">Next step note</div><input id="eNext" class="f" placeholder="e.g. Warm up, then request connection" value="'+esc(p&&p.next!=='No next step set'?p.next:'')+'"></div>'+
+    '</div><div style="display:flex;gap:10px;margin-top:20px"><button class="btn btn-teal" style="height:38px" onclick="A.saveEditor()">'+(p?'Save changes':'Add prospect')+'</button><button class="btn btn-out" style="height:38px" onclick="A.closeEditor()">Cancel</button></div></div></div>';
+}
+
+/* ============================ Render ============================ */
+function render(){
+  var body;
+  switch(S.screen){
+    case 'prospects':body=vProspects();break;
+    case 'activity':body=vActivity();break;
+    case 'strategy':body=vStrategy();break;
+    case 'content':body=vContent();break;
+    case 'conversations':body=vConversations();break;
+    case 'analytics':body=vAnalytics();break;
+    default:body=vDashboard();
+  }
+  var html='<div class="app">'+vSidebar()+'<div class="main">'+vTopbar()+'<main class="scroll">'+body+'</main></div></div>'+
+    vPlanModal()+vEditorModal()+
+    (S.toast?'<div class="toast">'+esc(S.toast)+'</div>':'');
+  document.getElementById('app').innerHTML=html;
+}
+document.addEventListener('keydown',function(e){if(e.key==='Escape'){if(S.editorOpen){S.editorOpen=false;render();}else if(S.planOpen){S.planOpen=false;render();}}});
+render();
+</script>
 </body>
 </html>
